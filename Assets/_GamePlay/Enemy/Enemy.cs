@@ -3,23 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-  [Header("AI")]
-  [SerializeField] private float moveSpeed = 3f;
-  [SerializeField] private float detectRange = 50f;
+
 
   [Header("스탯")]
   [SerializeField] private float maxHP = 100f;
+  [SerializeField] private float attackDamage = 10f;
 
   [Header("타입")]
   [SerializeField] private EnemyType enemyType = EnemyType.Skeleton;
   public EnemyType Type => enemyType;
-
+  public float CurrentHP => currentHP;
+  public float AttackDamage => attackDamage;
+  public bool IsDead => isDead;
   private float currentHP;
 
   [Header("사망 이펙트")]
   [SerializeField] private GameObject deathEffectPrefab;
 
-  private Transform target;
   private Animator animator;
   private Transform hpFill;
   private float hpFillMaxScaleX;
@@ -32,10 +32,6 @@ public class Enemy : MonoBehaviour
     animator = GetComponent<Animator>();
     currentHP = maxHP;
 
-    var player = GameObject.Find("CreepyCuteChar");
-    if (player != null)
-      target = player.transform;
-
     hpFill = transform.Find("Hips/Spine/Chest/Neck/Head/HPBar/HP_Fill");
     if (hpFill != null)
     {
@@ -43,31 +39,7 @@ public class Enemy : MonoBehaviour
       hpFillStartX = hpFill.localPosition.x;
     }
   }
-  //---------------------------------------------------------------------------
-  void Update()
-  {
-    if (isDead || target == null) return;
 
-    float distance = Vector3.Distance(transform.position, target.position);
-
-    if (distance < detectRange)
-    {
-      Vector3 dir = (target.position - transform.position).normalized;
-      dir.y = 0;
-      transform.position += dir * moveSpeed * Time.deltaTime;
-
-      Quaternion lookRotation = Quaternion.LookRotation(dir);
-      transform.rotation = Quaternion.Slerp(
-        transform.rotation, lookRotation, GameConst.RotationSpeed * Time.deltaTime
-      );
-
-      animator.SetFloat(AnimParam.Speed, 1f);
-    }
-    else
-    {
-      animator.SetFloat(AnimParam.Speed, 0f);
-    }
-  }
   //---------------------------------------------------------------------------
   public void TakeDamage(float damage)
   {
@@ -102,7 +74,7 @@ public class Enemy : MonoBehaviour
     SoundManager.Instance.PlayEnemyDeath();
     isDead = true;
     animator.SetFloat(AnimParam.Speed, 0f);
-    
+
     if (deathEffectPrefab != null)
     {
       Instantiate(deathEffectPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);

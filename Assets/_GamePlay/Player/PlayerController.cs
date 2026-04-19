@@ -106,6 +106,15 @@ public class PlayerController : MonoBehaviour
     {
       Vector3 dir = (targetPosition - transform.position).normalized;
 
+      // 중력적용
+      if (!characterController.isGrounded)
+      {
+        dir += Physics.gravity * Time.deltaTime;
+      } else
+      {
+        dir.y = 0f; // 수평 이동만
+      }
+
       // CharacterController.Move() — 벽에 부딪히면 자동으로 막힘
       characterController.Move(dir * moveSpeed * Time.deltaTime);
 
