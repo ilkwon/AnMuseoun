@@ -14,6 +14,14 @@ public enum WeaponType
     Axe = 2
 }
 
+public enum EnemyType
+{
+  Unknown = 0,
+  Skeleton = 1,
+  FastZombie = 2,
+  TankZombie = 3,
+
+}
 public static class AnimParam
 {
     public const string Speed      = "Speed";

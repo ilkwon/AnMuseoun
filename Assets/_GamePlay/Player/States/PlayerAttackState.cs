@@ -62,6 +62,7 @@ public class PlayerAttackState : IState
 
   private void DealDamage()
   {
+    SoundManager.Instance.PlayHit();
     float damage = 25f;
 
     var hits = Physics.OverlapSphere(

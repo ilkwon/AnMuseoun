@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
   [Header("AI")]
@@ -8,6 +9,11 @@ public class Enemy : MonoBehaviour
 
   [Header("스탯")]
   [SerializeField] private float maxHP = 100f;
+
+  [Header("타입")]
+  [SerializeField] private EnemyType enemyType = EnemyType.Skeleton;
+  public EnemyType Type => enemyType;
+
   private float currentHP;
 
   [Header("사망 이펙트")]
@@ -93,9 +99,10 @@ public class Enemy : MonoBehaviour
   //---------------------------------------------------------------------------
   private void Die()
   {
+    SoundManager.Instance.PlayEnemyDeath();
     isDead = true;
     animator.SetFloat(AnimParam.Speed, 0f);
-
+    
     if (deathEffectPrefab != null)
     {
       Instantiate(deathEffectPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
