@@ -1,10 +1,9 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-
-
   [Header("스탯")]
   [SerializeField] private float maxHP = 100f;
   [SerializeField] private float attackDamage = 10f;
@@ -26,6 +25,12 @@ public class Enemy : MonoBehaviour
   private float hpFillStartX;  // 초기 로컬 X 위치
   private bool isDead = false;
 
+  // 피격 플래시
+  [Header("피격 플래시")]
+  [SerializeField] private Material flashMaterial;
+  [SerializeField] private float flashDuration = 0.1f;
+  private MeshRenderer[] meshRenderers;
+  private Material[] originalMaterials;
   //---------------------------------------------------------------------------
   void Start()
   {
@@ -38,15 +43,26 @@ public class Enemy : MonoBehaviour
       hpFillMaxScaleX = hpFill.localScale.x;
       hpFillStartX = hpFill.localPosition.x;
     }
+
+    // 피격 플래시 초기화
+    meshRenderers = GetComponentsInChildren<MeshRenderer>();
+    originalMaterials = new Material[meshRenderers.Length];
+    for (int i = 0; i < meshRenderers.Length; i++)
+      originalMaterials[i] = meshRenderers[i].material;
+
   }
 
   //---------------------------------------------------------------------------
+  // 데미지 입는 함수
   public void TakeDamage(float damage)
   {
     if (isDead) return;
 
     currentHP -= damage;
     currentHP = Mathf.Max(0, currentHP);
+
+    // 피격 플래시 시작
+    StartCoroutine(FlashCoroutine());
 
     if (hpFill != null)
     {
@@ -68,6 +84,20 @@ public class Enemy : MonoBehaviour
       Die();
     }
   }
+
+  private System.Collections.IEnumerator FlashCoroutine()
+  {
+    // 메터리얼을 플래시용으로 교체
+    foreach (var mr in meshRenderers)
+      mr.material = flashMaterial;
+
+    yield return new WaitForSeconds(flashDuration);
+
+    // 원래 메터리얼로 복구
+    for (int i = 0; i < meshRenderers.Length; i++)
+      meshRenderers[i].material = originalMaterials[i];
+  }
+
   //---------------------------------------------------------------------------
   private void Die()
   {

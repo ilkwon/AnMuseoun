@@ -34,6 +34,6 @@ public static class AnimParam
 public static class GameConst
 {
     public const float StopDistance   = 0.1f;
-    public const float AttackRange   = 2.5f;
+    public const float AttackRange   = 5f;
     public const float RotationSpeed = 10f;
 }

@@ -61,10 +61,11 @@ public class PlayerAttackState : IState
   }
 
   private void DealDamage()
-  {
-    SoundManager.Instance.PlayHit();
+  {    
     float damage = 25f;
-
+    SoundManager.Instance.PlayHit();
+    Camera.main.GetComponent<CameraController>().Shake();
+    
     var hits = Physics.OverlapSphere(
       owner.transform.position,
       GameConst.AttackRange
@@ -74,8 +75,11 @@ public class PlayerAttackState : IState
     {
       var enemy = hit.GetComponent<Enemy>();
       if (enemy != null)
-      {
+      {        
         enemy.TakeDamage(damage);
+        var ai = enemy.GetComponent<EnemyAI>();
+        if (ai != null)
+          ai.Knockback(owner.transform.position, 8f);          
       }
     }
   }

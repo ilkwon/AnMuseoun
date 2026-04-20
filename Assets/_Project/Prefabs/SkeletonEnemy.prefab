@@ -11145,9 +11145,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHP: 2000
-  attackDamage: 10
+  attackDamage: 20
   enemyType: 1
   deathEffectPrefab: {fileID: 221124955577109573, guid: cf149e83c3f5e4187b66491d8c44dee6, type: 3}
+  flashMaterial: {fileID: 2100000, guid: b2d597c941e94409aa3e4a3b3ff1fde1, type: 2}
+  flashDuration: 0.1
 --- !u!114 &-8213971085622526312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11161,8 +11163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   detectRange: 50
-  attackRange: 2.5
-  attackCooldown: 2
+  attackRange: 3.5
+  attackCooldown: 1
 --- !u!136 &2292780784819424677
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11196,7 +11198,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.8
-  m_Speed: 3
+  m_Speed: 9
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
