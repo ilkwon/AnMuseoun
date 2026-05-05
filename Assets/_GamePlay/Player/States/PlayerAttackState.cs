@@ -62,7 +62,7 @@ public class PlayerAttackState : IState
 
   private void DealDamage()
   {    
-    float damage = 25f;
+    float damage = owner.Stats.AttackPower;
     SoundManager.Instance.PlayHit();
     Camera.main.GetComponent<CameraController>().Shake();
     

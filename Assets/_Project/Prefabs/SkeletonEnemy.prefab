@@ -11144,7 +11144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8135d19aafe2649a9aa204732e91f510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  maxHP: 2000
+  maxHP: 500
   attackDamage: 20
   enemyType: 1
   deathEffectPrefab: {fileID: 221124955577109573, guid: cf149e83c3f5e4187b66491d8c44dee6, type: 3}

@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
   public float AttackDamage => attackDamage;
   public bool IsDead => isDead;
   private float currentHP;
+  public Action<Enemy> OnDeath;  // 적이 죽었을 때 호출되는 이벤트
 
   [Header("사망 이펙트")]
   [SerializeField] private GameObject deathEffectPrefab;
@@ -110,7 +111,9 @@ public class Enemy : MonoBehaviour
       Instantiate(deathEffectPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
     }
 
+    OnDeath?.Invoke(this);
     Destroy(gameObject, 0.3f);
+    
   }
   //---------------------------------------------------------------------------
 }
