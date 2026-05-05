@@ -105,19 +105,17 @@ public class PlayerController : MonoBehaviour
     if (distance > GameConst.StopDistance)
     {
       Vector3 dir = (targetPosition - transform.position).normalized;
-
-      // 중력적용
+      dir.y = 0f; // 수평 이동만
+      
+      // 이동.
+      Vector3 move = dir * moveSpeed * Time.deltaTime;
+      // 중력 (수직, 별도처리)
       if (!characterController.isGrounded)
-      {
-        dir += Physics.gravity * Time.deltaTime;
-      } else
-      {
-        dir.y = 0f; // 수평 이동만
-      }
-
-      // CharacterController.Move() — 벽에 부딪히면 자동으로 막힘
-      characterController.Move(dir * moveSpeed * Time.deltaTime);
-
+        move.y += Physics.gravity.y * Time.deltaTime;
+      else
+        move.y = 0f;
+      characterController.Move(move);
+      
       Quaternion lookRotation = Quaternion.LookRotation(dir);
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation,
         GameConst.RotationSpeed * Time.deltaTime);
