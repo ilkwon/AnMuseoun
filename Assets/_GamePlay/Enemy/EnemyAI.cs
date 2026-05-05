@@ -89,7 +89,7 @@ public class EnemyAI : MonoBehaviour
   //---------------------------------------------------------------------------  
   public void Knockback(Vector3 attackerPosition, float force)
   {
-    if (!navAgent.isOnNavMesh) return; 
+    if (!navAgent.isOnNavMesh) return;
     StartCoroutine(KnockbackCoroutine(attackerPosition, force));
   }
   //---------------------------------------------------------------------------
@@ -115,7 +115,14 @@ public class EnemyAI : MonoBehaviour
     navAgent.velocity = Vector3.zero;
     yield return new WaitForSeconds(0.1f); // 잠깐 멈췄다가 다시 행동 가능
 
-    isKnockback = false;    
+    isKnockback = false;
   }
-  //---------------------------------------------------------------------------  
+  //--------------------------------------------------------------------------- 
+  void OnDrawGizmosSelected()
+  {
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, detectRange);
+    Gizmos.color = Color.red;
+    Gizmos.DrawWireSphere(transform.position, attackRange);
+  }
 }
