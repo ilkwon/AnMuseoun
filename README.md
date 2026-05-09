@@ -29,12 +29,41 @@
 | **Input** | New Input System |
 | **적 AI** | NavMesh (AI Navigation v2.0.11) |
 | **애니메이션** | DOTween Pro |
+| **데이터** | unity-excel-importer (구글시트 → xlsx → ScriptableObject) |
 | **플랫폼** | PC (Steam 예정), 모바일 (포팅 예정) |
 | **개발** | 1인 개발 |
 
 ---
 
 ## 구현된 핵심 시스템
+
+### 데이터 파이프라인
+
+게임 수치를 코드에서 완전히 분리한 데이터 관리 시스템.
+
+```
+구글시트 (편집)
+    ↓  xlsx 다운로드
+Assets/_Project/Data/Excel/GameData.xlsx
+    ↓  unity-excel-importer (Editor 전용)
+Assets/_Project/Data/Tables/GameData.asset (ScriptableObject)
+    ↓  런타임 로드
+GameDataManager.Instance.GetEnemyStat(EnemyType.Skeleton)
+```
+
+- **IDataSource 인터페이스** — 데이터 소스 교체 지점 (SO → CSV → 서버로 단계별 전환 가능)
+- **GameDataManager (Singleton)** — 게임 코드의 유일한 데이터 접근 창구
+- **SODataSource** — 현재 구현체 (ScriptableObject 기반)
+- 추후 Python/Jenkins 자동화, 서버/Redis 연동 대비 구조
+
+**관리 데이터:**
+
+| 테이블 | 내용 |
+|--------|------|
+| PlayerStat | 레벨별 HP, ATK, DEF, SPD, 경험치 요구량 |
+| EnemyStat | 적 종류별 HP, ATK, DEF, SPD, 경험치 드롭, AI 수치 |
+| WeaponStat | 무기별 데미지 배율 |
+| WaveStat | 웨이브별 적 종류, 수량, 스폰 간격 |
 
 ### FSM (Finite State Machine)
 
@@ -62,6 +91,7 @@ EnemyAI.cs — 추적, 분산, 공격 판단 (행동)
 - **NavMeshAgent** — 장애물 회피, 최단 경로, 적끼리 자동 분산
 - **감지 → 추적 → 공격** 상태 분기
 - **넉백 코루틴** — 피격 시 밀림 → 경직 → 복귀 (힘 감쇠 곡선 적용)
+- 모든 AI 수치 (감지범위, 공격범위, 쿨다운, 이동속도) GameDataManager 연동
 
 ### 타격 피드백 시스템
 
@@ -106,26 +136,60 @@ SoundManager (Singleton)
 
 ```
 Assets/
-├── _Framework/          ← 프로젝트 독립, 재사용 가능
-│   ├── Core/            Singleton, SoundManager
-│   ├── FSM/             IState, StateMachine
-│   └── Util/            Billboard
+├── _Framework/              ← 프로젝트 독립, 재사용 가능
+│   ├── Core/                Singleton, SoundManager
+│   ├── Data/                IDataSource, GameDataManager
+│   ├── FSM/                 IState, StateMachine
+│   └── Util/                Billboard
 │
-├── _GamePlay/           ← 이 게임 전용 로직
-│   ├── Defines.cs       enum, const 모음
-│   ├── Player/          PlayerController, PlayerStateMachine, States/
-│   ├── Camera/          CameraController (쿼터뷰)
-│   └── Enemy/           Enemy (데이터), EnemyAI (행동)
+├── _GamePlay/               ← 이 게임 전용 로직
+│   ├── Defines.cs           enum, const 모음
+│   ├── Player/              PlayerController, PlayerStateMachine, States/
+│   ├── Camera/              CameraController (쿼터뷰)
+│   └── Enemy/               Enemy (데이터), EnemyAI (행동)
 │
-├── _Project/            ← 리소스
-│   ├── Animations/      Idle, Walk, Attack 클립
-│   ├── Art/Materials/   캐릭터, 환경, 이펙트 Material
-│   ├── Audio/SFX/       타격음, 사망음
-│   ├── Prefabs/         캐릭터, 적, 이펙트 프리팹
-│   └── Scenes/          메인 씬
+├── _Project/                ← 리소스
+│   ├── Animations/          Idle, Walk, Attack 클립
+│   ├── Art/Materials/       캐릭터, 환경, 이펙트 Material
+│   ├── Audio/SFX/           타격음, 사망음
+│   ├── Data/
+│   │   ├── Excel/           GameData.xlsx (원본, 에디터 전용)
+│   │   ├── Tables/          GameData.asset (ScriptableObject)
+│   │   └── SODataSource.cs  데이터 소스 구현체
+│   ├── Prefabs/             캐릭터, 적, 이펙트 프리팹
+│   └── Scenes/              메인 씬
 │
-└── Plugins/             DOTween Pro
+└── Plugins/                 DOTween Pro
 ```
+
+---
+
+## 밸런스 수치
+
+### 플레이어
+
+| 레벨 | HP | ATK | DEF | SPD | 필요 EXP |
+|------|----|-----|-----|-----|---------|
+| 1 | 100 | 10 | 5 | 5.0 | 100 |
+| 2 | 120 | 13 | 7 | 5.4 | 283 |
+| 3 | 140 | 16 | 9 | 5.8 | 520 |
+| 4 | 160 | 19 | 11 | 6.2 | 800 |
+| 5 | 180 | 22 | 13 | 6.6 | 1150 |
+
+### 적
+
+| 이름 | HP | ATK | SPD | EXP 드롭 |
+|------|----|-----|-----|---------|
+| Skeleton | 50 | 8 | 3.0 | 10 |
+| FastZombie | 30 | 6 | 5.0 | 15 |
+| TankZombie | 150 | 12 | 2.0 | 25 |
+
+### 무기
+
+| 무기 | 데미지 배율 |
+|------|-----------|
+| Punch | × 1.0 |
+| Axe | × 1.8 |
 
 ---
 
@@ -147,13 +211,18 @@ Assets/
 - [x] 사망 연출 (연기 파티클 + Destroy)
 - [x] 게임오버 (흑백 처리 + GAME OVER UI + 씬 리로드)
 - [x] 어두운 고딕 환경 (붉은 달, 안개, 네온, Post Processing)
+- [x] 데이터 파이프라인 (구글시트 → xlsx → SO → GameDataManager)
+- [x] 전투 수치 데이터화 (플레이어/적/무기/웨이브 전 수치 분리)
 
 ### 개발 예정
 
-- [ ] 웨이브 시스템 (적 리스폰 + 단계별 난이도)
-- [ ] 맵 진행 구조 (위→아래, 되돌아갈 수 없음)
+- [ ] DamageCalculator (무기배율 + 크리티컬 공식)
 - [ ] 데미지 숫자 팝업 (DOTween 연출)
 - [ ] 크리티컬 + 콤보 시스템
+- [ ] ObjectPool (적 대량 스폰 대비)
+- [ ] 레벨 / 경험치 시스템
+- [ ] 웨이브 시스템 (적 리스폰 + 단계별 난이도)
+- [ ] 맵 진행 구조 (위→아래, 되돌아갈 수 없음)
 - [ ] SOUL 재화 시스템
 - [ ] 캐릭터 MagicaVoxel 모델 교체
 - [ ] BGM
