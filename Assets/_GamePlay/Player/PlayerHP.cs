@@ -19,7 +19,6 @@ public class PlayerHP : MonoBehaviour
   //---------------------------------------------------------------------------
   void Start()
   {
-
     // 흑백 처리 초기화 (씬 리로드 시 원래 색상으로)
     var volume = FindAnyObjectByType<UnityEngine.Rendering.Volume>();
     if (volume != null && volume.profile.TryGet<UnityEngine.Rendering.Universal.ColorAdjustments>(out var ca))
