@@ -22,6 +22,12 @@ public class EnemyAI : MonoBehaviour
     navAgent = GetComponent<NavMeshAgent>();
     animator = GetComponent<Animator>();
 
+    var stat = GameDataManager.Instance.GetEnemyStat(enemy.Type);
+    detectRange = stat.detect_range;
+    attackRange = stat.attack_range;
+    attackCooldown = stat.attack_cooldown;
+    navAgent.speed = stat.spd;    
+
     var playerObj = GameObject.Find("CreepyCuteChar");
     if (playerObj != null)
       player = playerObj.transform;

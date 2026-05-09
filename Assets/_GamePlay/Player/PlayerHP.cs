@@ -25,7 +25,7 @@ public class PlayerHP : MonoBehaviour
     if (volume != null && volume.profile.TryGet<UnityEngine.Rendering.Universal.ColorAdjustments>(out var ca))
       ca.saturation.Override(0f);
 
-
+    maxHP = GameDataManager.Instance.GetPlayerStat(1).hp; // 레벨 1 HP로 초기화
     currentHP = maxHP;
 
     var fill = GameObject.Find("PlayerHPCanvas/HPBarContainer/HP_Fill");

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
   [Header("스탯")]
   [SerializeField] private float maxHP = 100f;
-  [SerializeField] private float attackDamage = 10f;
+  [SerializeField] private float attackDamage = 10f;// 나중에 밸런스 데이터로 교체할 부분
 
   [Header("타입")]
   [SerializeField] private EnemyType enemyType = EnemyType.Skeleton;
@@ -36,6 +36,10 @@ public class Enemy : MonoBehaviour
   void Start()
   {
     animator = GetComponent<Animator>();
+    var stat = GameDataManager.Instance.GetEnemyStat(enemyType);
+    maxHP = stat.hp;
+    attackDamage = stat.atk;
+    
     currentHP = maxHP;
 
     hpFill = transform.Find("Hips/Spine/Chest/Neck/Head/HPBar/HP_Fill");
@@ -44,7 +48,7 @@ public class Enemy : MonoBehaviour
       hpFillMaxScaleX = hpFill.localScale.x;
       hpFillStartX = hpFill.localPosition.x;
     }
-
+    
     // 피격 플래시 초기화
     meshRenderers = GetComponentsInChildren<MeshRenderer>();
     originalMaterials = new Material[meshRenderers.Length];

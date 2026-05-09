@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerStateMachine : MonoBehaviour
 {
-  public Stats Stats;
+
   private StateMachine fsm;
   private Animator animator;
   private PlayerController controller;
@@ -26,10 +26,14 @@ public class PlayerStateMachine : MonoBehaviour
 
     // 초기 상태
     fsm.ChangeState<PlayerIdleState>();
-
-    Stats = new Stats();
   }
-
+  //---------------------------------------------------------------------------
+  private void Start()
+  {
+    var stat = GameDataManager.Instance.GetPlayerStat(1); // 레벨 1 스탯으로 초기화
+    controller.MoveSpeed = stat.spd;
+    
+  }
   //---------------------------------------------------------------------------
   private void Update()
   {
@@ -37,10 +41,4 @@ public class PlayerStateMachine : MonoBehaviour
   }
 
   //---------------------------------------------------------------------------
-}
-
-public class Stats
-{
-  public float MaxHealth = 100f;
-  public float AttackPower = 45f;
 }

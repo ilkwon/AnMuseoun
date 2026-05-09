@@ -10,6 +10,7 @@ public class PlayerAttackState : IState
   // 번개 프리팹 (Resources 폴더 없이 직접 참조)
   private static GameObject lightningPrefab;
 
+  //---------------------------------------------------------------------------
   public PlayerAttackState(PlayerStateMachine owner)
   {
     this.owner = owner;
@@ -24,6 +25,7 @@ public class PlayerAttackState : IState
     }
   }
 
+  //---------------------------------------------------------------------------
   public void Enter()
   {
     owner.Animator.SetFloat(AnimParam.Speed, 0f);
@@ -35,9 +37,10 @@ public class PlayerAttackState : IState
       attackTrail.Clear();
       attackTrail.emitting = true;
     }
-    if (handFire != null) handFire.Play();
+    if (handFire != null) handFire.Play();  
   }
 
+  //---------------------------------------------------------------------------
   public void Update()
   {
     if (!hasDealtDamage)
@@ -54,15 +57,17 @@ public class PlayerAttackState : IState
     }
   }
 
+  //---------------------------------------------------------------------------
   public void Exit()
   {
     if (attackTrail != null) attackTrail.emitting = false;
     if (handFire != null) handFire.Stop();
   }
 
+  //---------------------------------------------------------------------------
   private void DealDamage()
   {    
-    float damage = owner.Stats.AttackPower;
+    float damage = GameDataManager.Instance.GetPlayerStat(1).atk; // 레벨 1 공격력으로 고정
     SoundManager.Instance.PlayHit();
     Camera.main.GetComponent<CameraController>().Shake();
     
@@ -84,6 +89,7 @@ public class PlayerAttackState : IState
     }
   }
 
+  //---------------------------------------------------------------------------
   private void SpawnLightning()
   {
     // 프리팹 로딩 (최초 1회만)
@@ -104,4 +110,6 @@ public class PlayerAttackState : IState
 
     Object.Instantiate(lightningPrefab, spawnPos, rotation);
   }
+
+  //---------------------------------------------------------------------------
 }

@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
   private bool isRotatingToAttack = false;
   private Quaternion attackRotation;
   private float attackRotateSpeed = 20f;
+
+  public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }  // 추가
+
   //---------------------------------------------------------------------------
   private void Start()
   {
