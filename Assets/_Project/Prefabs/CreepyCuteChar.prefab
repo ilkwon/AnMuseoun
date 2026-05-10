@@ -7213,9 +7213,10 @@ GameObject:
   - component: {fileID: 4218948903536524943}
   - component: {fileID: 1191187187274327559}
   - component: {fileID: 3781893610625119124}
+  - component: {fileID: 7732841766204166984}
   m_Layer: 0
   m_Name: CreepyCuteChar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7341,6 +7342,18 @@ MonoBehaviour:
   radius: 7
   color: {r: 0.22895159, g: 0.8624432, b: 0.990566, a: 1}
   showInGame: 1
+--- !u!114 &7732841766204166984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4092128165878855201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5081b949ddc4d47eab4698af9a64f5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExpUI
 --- !u!1 &4126399648908682687
 GameObject:
   m_ObjectHideFlags: 0

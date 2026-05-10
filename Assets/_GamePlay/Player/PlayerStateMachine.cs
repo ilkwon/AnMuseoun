@@ -21,6 +21,10 @@ public class PlayerStateMachine : MonoBehaviour
   {
     currentEXP += amount;
     var stat = GameDataManager.Instance.GetPlayerStat(currentLevel);
+    PlayerExpUI expUI = GetComponent<PlayerExpUI>();
+    if (expUI != null)
+      expUI.UpdateUI();
+
     if (currentEXP >= stat.exp_required)
     {
       currentEXP -= stat.exp_required;

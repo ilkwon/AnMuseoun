@@ -66,13 +66,15 @@ public class PlayerAttackState : IState
 
   //---------------------------------------------------------------------------
   private void DealDamage()
-  {    
-
+  {
     var result = DamageCalculator.Calculate(owner.CurrentLevel, WeaponType.Axe);
+    
 
     SoundManager.Instance.PlayHit();
-    float intensity = result.isCritical ? 0.5f : 0.2f;
-    Camera.main.GetComponent<CameraController>().Shake(0.12f, intensity);
+
+    // 크리티컬 히트 시 카메라 흔들림    
+    if (result.isCritical)
+      Camera.main.GetComponent<CameraController>().Shake(0.12f, 0.5f);
     
     var hits = Physics.OverlapSphere(
       owner.transform.position,

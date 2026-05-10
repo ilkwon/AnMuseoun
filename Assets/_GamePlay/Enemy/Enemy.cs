@@ -29,11 +29,11 @@ public class Enemy : MonoBehaviour
 
   // 피격 플래시
   [Header("피격 플래시")]
-  [SerializeField] private readonly Material flashMaterial;
-  [SerializeField] private readonly float flashDuration = 0.1f;
+  [SerializeField] private Material flashMaterial;
+  [SerializeField] private float flashDuration = 0.1f;
   private MeshRenderer[] meshRenderers;
   private Material[] originalMaterials;
-  
+
   //---------------------------------------------------------------------------
   void Start()
   {
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
     stat = GameDataManager.Instance.GetEnemyStat(enemyType);
     maxHP = stat.hp;
     attackDamage = stat.atk;
-    
+
     currentHP = maxHP;
 
     hpFill = transform.Find("Hips/Spine/Chest/Neck/Head/HPBar/HP_Fill");
@@ -50,12 +50,15 @@ public class Enemy : MonoBehaviour
       hpFillMaxScaleX = hpFill.localScale.x;
       hpFillStartX = hpFill.localPosition.x;
     }
-    
+
     // 피격 플래시 초기화
     meshRenderers = GetComponentsInChildren<MeshRenderer>();
     originalMaterials = new Material[meshRenderers.Length];
     for (int i = 0; i < meshRenderers.Length; i++)
-      originalMaterials[i] = meshRenderers[i].material;
+      {
+        originalMaterials[i] = new Material(meshRenderers[i].sharedMaterial); // 원래 메터리얼 복사본 저장
+        meshRenderers[i].sharedMaterial = originalMaterials[i]; // 인스턴스화된 메터리얼로 교체
+      }
 
   }
 
@@ -92,17 +95,18 @@ public class Enemy : MonoBehaviour
     }
   }
 
+  //---------------------------------------------------------------------------
   private System.Collections.IEnumerator FlashCoroutine()
   {
     // 메터리얼을 플래시용으로 교체
     foreach (var mr in meshRenderers)
-      mr.material = flashMaterial;
+      mr.sharedMaterial = flashMaterial;
 
     yield return new WaitForSeconds(flashDuration);
 
     // 원래 메터리얼로 복구
     for (int i = 0; i < meshRenderers.Length; i++)
-      meshRenderers[i].material = originalMaterials[i];
+      meshRenderers[i].sharedMaterial = originalMaterials[i];
   }
 
   //---------------------------------------------------------------------------
@@ -120,16 +124,16 @@ public class Enemy : MonoBehaviour
 
     OnDeath?.Invoke(this);
     Destroy(gameObject, 0.3f);
-    
+
   }
 
   //---------------------------------------------------------------------------
   private void ProcessGainEXP()
   {
-    var stat = GameDataManager.Instance.GetEnemyStat(enemyType);
-    var player = GameObject.FindWithTag("Player");    
-    if (player.TryGetComponent<PlayerStateMachine>(out var playerSM)){
-      playerSM.GainEXP(stat.exp_drop);  
+    var player = GameObject.FindWithTag("Player");
+    if (player.TryGetComponent<PlayerStateMachine>(out var playerSM))
+    {
+      playerSM.GainEXP(stat.exp_drop);
     }
   }
   //---------------------------------------------------------------------------
