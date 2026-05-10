@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
 
   private bool isLastWave()
   {
-    return currentWave >= waveEnemyCounts.Length - 1;
+    return currentWave >= waveEnemyCounts.Length;
   }
 
   private IEnumerator StageClear(float waitTime = 1.6f)
@@ -82,9 +82,8 @@ public class EnemySpawner : MonoBehaviour
       SpawnEnemy();
       yield return new WaitForSeconds(0.5f); // 스폰 간격 조절      
     }
-    isSpawning = false;
-    doWaving = true;
     currentWave++;
+    isSpawning = false;    
   }
 
   //---------------------------------------------------------------------------
@@ -106,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
   private void HandleEnemyDeath(Enemy enemy)
   {
     alivingEnemyCount--;
-    Debug.Log($"적 사망! 현재 생존 적 수: {alivingEnemyCount}");    
+    //Debug.Log($"적 사망! 현재 생존 적 수: {alivingEnemyCount}");    
     enemy.OnDeath -= HandleEnemyDeath;
   }
 

@@ -12,7 +12,7 @@ public class SODataSource : IDataSource
   //-----------------------------------------------------------------------------
   public PlayerStatEntity GetPlayerStat(int level) => _data.PlayerStat.Find(x => x.level == level);
   public EnemyStatEntity GetEnemyStat(EnemyType type) => _data.EnemyStat.Find(x => x.id == (int)type);
-  public WeaponStatEntity GetWeaponStat(WeaponType id) => _data.WeaponStat.Find(x => x.id == (int)id);
+  public WeaponStatEntity GetWeaponStat(WeaponType weaponType) => _data.WeaponStat.Find(x => x.weapon_type == (int)weaponType);
   public WaveStatEntity GetWaveStat(int wave) => _data.WaveStat.Find(x => x.wave == wave);
   //-----------------------------------------------------------------------------
 }

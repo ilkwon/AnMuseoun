@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
   [SerializeField] private float attackDamage = 10f;// 나중에 밸런스 데이터로 교체할 부분
 
   [Header("타입")]
-  [SerializeField] private EnemyType enemyType = EnemyType.Skeleton;
+  [SerializeField] private readonly EnemyType enemyType = EnemyType.Skeleton;
   public EnemyType Type => enemyType;
   public float CurrentHP => currentHP;
   public float AttackDamage => attackDamage;
@@ -18,25 +18,27 @@ public class Enemy : MonoBehaviour
   public Action<Enemy> OnDeath;  // 적이 죽었을 때 호출되는 이벤트
 
   [Header("사망 이펙트")]
-  [SerializeField] private GameObject deathEffectPrefab;
+  [SerializeField] private readonly GameObject deathEffectPrefab;
 
   private Animator animator;
   private Transform hpFill;
   private float hpFillMaxScaleX;
   private float hpFillStartX;  // 초기 로컬 X 위치
   private bool isDead = false;
+  private EnemyStatEntity stat; // 적 스탯 데이터
 
   // 피격 플래시
   [Header("피격 플래시")]
-  [SerializeField] private Material flashMaterial;
-  [SerializeField] private float flashDuration = 0.1f;
+  [SerializeField] private readonly Material flashMaterial;
+  [SerializeField] private readonly float flashDuration = 0.1f;
   private MeshRenderer[] meshRenderers;
   private Material[] originalMaterials;
+  
   //---------------------------------------------------------------------------
   void Start()
   {
     animator = GetComponent<Animator>();
-    var stat = GameDataManager.Instance.GetEnemyStat(enemyType);
+    stat = GameDataManager.Instance.GetEnemyStat(enemyType);
     maxHP = stat.hp;
     attackDamage = stat.atk;
     
@@ -107,6 +109,7 @@ public class Enemy : MonoBehaviour
   private void Die()
   {
     SoundManager.Instance.PlayEnemyDeath();
+    ProcessGainEXP();
     isDead = true;
     animator.SetFloat(AnimParam.Speed, 0f);
 
@@ -118,6 +121,16 @@ public class Enemy : MonoBehaviour
     OnDeath?.Invoke(this);
     Destroy(gameObject, 0.3f);
     
+  }
+
+  //---------------------------------------------------------------------------
+  private void ProcessGainEXP()
+  {
+    var stat = GameDataManager.Instance.GetEnemyStat(enemyType);
+    var player = GameObject.FindWithTag("Player");    
+    if (player.TryGetComponent<PlayerStateMachine>(out var playerSM)){
+      playerSM.GainEXP(stat.exp_drop);  
+    }
   }
   //---------------------------------------------------------------------------
 }

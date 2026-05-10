@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
   [Header("이동")]
   [SerializeField] private float moveSpeed = 5f;
   [Header("이펙트")]
-  [SerializeField] private GameObject clickEffectPrefab;
+  [SerializeField] private GameObject clickEffectPrefab;  // 바닥 클릭시 포인트 이펙트.
 
   private Camera mainCamera;
   private PlayerStateMachine playerState;
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
     {
       Vector3 dir = (targetPosition - transform.position).normalized;
       dir.y = 0f; // 수평 이동만
-      
+
       // 이동.
       Vector3 move = dir * moveSpeed * Time.deltaTime;
       // 중력 (수직, 별도처리)
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
       else
         move.y = 0f;
       characterController.Move(move);
-      
+
       Quaternion lookRotation = Quaternion.LookRotation(dir);
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation,
         GameConst.RotationSpeed * Time.deltaTime);
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
   //---------------------------------------------------------------------------
   private void OnDrawGizmosSelected()
   {
- Gizmos.color = Color.red;
+    Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, GameConst.AttackRange);
 
   }

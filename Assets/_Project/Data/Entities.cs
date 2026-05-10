@@ -7,10 +7,10 @@ public class PlayerStatEntity
   public int id;
   public int level;
   public float hp;
-  public float atk;
-  public float def;
-  public float spd;
-  public float exp_required;
+  public float atk; // attack
+  public float def; // defense
+  public float spd; // speed
+  public float exp_required;  // 다음 레벨까지 필요한 경험치
   public int version;
 }
 //-----------------------------------------------------------------------------
@@ -38,7 +38,7 @@ public class WeaponStatEntity
   public int id;
   public string name;
   public int weapon_type;
-  public float damage_multiplier;
+  public float damage_multiplier; //
   public int version;
 }
 

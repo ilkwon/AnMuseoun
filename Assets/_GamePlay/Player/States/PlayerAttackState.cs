@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAttackState : IState
 {
-  private PlayerStateMachine owner;
+  private readonly PlayerStateMachine owner; // 상태를 소유한 플레이어 FSM
   private bool hasDealtDamage = false;
   private TrailRenderer attackTrail;
   private ParticleSystem handFire;
@@ -67,21 +67,24 @@ public class PlayerAttackState : IState
   //---------------------------------------------------------------------------
   private void DealDamage()
   {    
-    float damage = GameDataManager.Instance.GetPlayerStat(1).atk; // 레벨 1 공격력으로 고정
+
+    var result = DamageCalculator.Calculate(owner.CurrentLevel, WeaponType.Axe);
+
     SoundManager.Instance.PlayHit();
-    Camera.main.GetComponent<CameraController>().Shake();
+    float intensity = result.isCritical ? 0.5f : 0.2f;
+    Camera.main.GetComponent<CameraController>().Shake(0.12f, intensity);
     
     var hits = Physics.OverlapSphere(
       owner.transform.position,
-      GameConst.AttackRange
-    );
-
+      GameConst.AttackRange);
+      
     foreach (var hit in hits)
     {
       var enemy = hit.GetComponent<Enemy>();
       if (enemy != null)
       {        
-        enemy.TakeDamage(damage);
+        enemy.TakeDamage(result.damage);
+        //Debug.Log($"Dealt {result.damage} damage to {enemy.name} (Critical: {result.isCritical})"); 
         var ai = enemy.GetComponent<EnemyAI>();
         if (ai != null)
           ai.Knockback(owner.transform.position, 8f);          
@@ -108,7 +111,7 @@ public class PlayerAttackState : IState
     var spawnPos = owner.transform.position + Vector3.up * 3f + owner.transform.forward * 1f;
     var rotation = Quaternion.LookRotation(owner.transform.forward);
 
-    Object.Instantiate(lightningPrefab, spawnPos, rotation);
+  //  Object.Instantiate(lightningPrefab, spawnPos, rotation);
   }
 
   //---------------------------------------------------------------------------

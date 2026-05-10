@@ -37,3 +37,12 @@ public static class GameConst
     public const float AttackRange   = 7f;
     public const float RotationSpeed = 10f;
 }
+
+
+
+public struct DamageResult
+{
+  public float damage;
+  public bool isCritical;
+  public WeaponType weaponType; // 추가: 무기 타입 정보
+}
