@@ -64,6 +64,9 @@ public class PlayerHP : MonoBehaviour
   private void Die()
   {
     //Debug.Log("Player Died!");
+
+    HardcoreReset();
+
     GrayscaleScreen();
     ShowGameOverUI();
 
@@ -72,6 +75,17 @@ public class PlayerHP : MonoBehaviour
     if (playerModel != null)
       playerModel.gameObject.SetActive(false);
   }
+  //---------------------------------------------------------------------------
+  private void HardcoreReset()
+  {
+    SaveData.Instance.info.currentLevel = 1;
+    SaveData.Instance.info.currentEXP = 0f;
+    SaveData.Instance.info.currentWave = 0;
+    SaveData.Instance.info.enemyBuffLevel = 0;
+
+    SaveData.Instance.Save();
+  }
+
   //---------------------------------------------------------------------------
   private void ShowGameOverUI()
   {
@@ -103,6 +117,13 @@ public class PlayerHP : MonoBehaviour
       colorAdj.saturation.overrideState = true;
       colorAdj.saturation.value = -100f;
     }
+  }
+
+  public void SetMaxHP(float hp)
+  {
+    maxHP = hp;
+    currentHP = maxHP;
+    UpdateHPUI();
   }
   //---------------------------------------------------------------------------
 }

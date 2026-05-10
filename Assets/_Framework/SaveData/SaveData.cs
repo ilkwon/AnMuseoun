@@ -9,7 +9,6 @@ using System.Security.Cryptography;
 
 public partial class SaveData : MonoBehaviour
 {
-
   //----------------------------------------------------------------------------
   public static SaveData Instance
   {
@@ -23,10 +22,10 @@ public partial class SaveData : MonoBehaviour
       return s_instance;
     }
   }
-  public Info info;  
+  public Info info;
   private string path;
   private static SaveData s_instance;
-  
+
   //----------------------------------------------------------------------------
   void Awake()
   {
@@ -178,6 +177,10 @@ public partial class SaveData : MonoBehaviour
     public int lastDay;
     public bool isAgree;
     public bool usePassword;
+    public int currentWave;
+    public int currentLevel;
+    public float currentEXP;
+    public int enemyBuffLevel;  // 적 버프 레벨 (0부터 시작, 최대 10)
     //----------------------------------------------------------------------------
 
     public Info()
@@ -194,11 +197,15 @@ public partial class SaveData : MonoBehaviour
       ///usePassword = false;  usePassword 는 초기화 시 false로 설정하지 않음 (사용자가 명시적으로 설정한 값을 유지하기 위해)
 
       version = 1;
+      currentWave = 0;
+      currentLevel = 1;
+      currentEXP = 0f;
+      enemyBuffLevel = 0;
     }
 
     public Info(SerializationInfo info, StreamingContext context)
     {
-      
+
       try { soul = (int)info.GetValue("soul", typeof(int)); }
       catch (SerializationException)
       {
@@ -267,8 +274,31 @@ public partial class SaveData : MonoBehaviour
       {
         version = 1;
       }
-      
-      
+
+      try { currentWave = (int)info.GetValue("currentWave", typeof(int)); }
+      catch (SerializationException)
+      {
+        currentWave = 0;
+      }
+
+      try { currentLevel = (int)info.GetValue("currentLevel", typeof(int)); }
+      catch (SerializationException)
+      {
+        currentLevel = 1;
+      }
+
+      try { currentEXP = (float)info.GetValue("currentEXP", typeof(float)); }
+      catch (SerializationException)
+      {
+        currentEXP = 0f;
+      }
+
+      try { enemyBuffLevel = (int)info.GetValue("enemyBuffLevel", typeof(int)); }
+      catch (SerializationException)
+      {
+        enemyBuffLevel = 0;
+      }
+
       try
       {
         option.isPlayMusic = (bool)info.GetValue("musicState", typeof(bool));
@@ -365,6 +395,11 @@ public partial class SaveData : MonoBehaviour
       //----------------------------------------------------------------------------
       info.AddValue("soul", soul);
       info.AddValue("highScore", highScore);
+
+      info.AddValue("currentWave", currentWave);
+      info.AddValue("currentLevel", currentLevel);
+      info.AddValue("currentEXP", currentEXP);
+      info.AddValue("enemyBuffLevel", enemyBuffLevel);
     }
   }
   //---------------------------------------------------------------------

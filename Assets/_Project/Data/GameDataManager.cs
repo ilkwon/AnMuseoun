@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameDataManager : Singleton<GameDataManager>
@@ -27,5 +29,6 @@ public class GameDataManager : Singleton<GameDataManager>
   public EnemyStatEntity GetEnemyStat(EnemyType type) => _source.GetEnemyStat(type);
   public WeaponStatEntity GetWeaponStat(WeaponType weaponType) => _source.GetWeaponStat(weaponType);
   public WaveStatEntity GetWaveStat(int wave) => _source.GetWaveStat(wave);
+  public List<WaveStatEntity> GetWaveStatsByWave(int wave) => _source.GetWaveStatsByWave(wave);
   //-----------------------------------------------------------------------------
 }

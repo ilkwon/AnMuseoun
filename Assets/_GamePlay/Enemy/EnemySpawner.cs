@@ -11,14 +11,13 @@ public class EnemySpawner : MonoBehaviour
 
   // 밸런스 데이터 — 나중에 DataManager로 교체할 부분
   [Header("웨이브 데이터")]
-  [SerializeField] private int[] waveEnemyCounts = { 3 };
-  [SerializeField] private float waveCooldown = 3f;
+  
   [SerializeField] private float spawnRadius = 25f;
   [SerializeField] private GameObject stageClearEffectPrefab;
 
   // 프리팹 — 나중에 Addressable/AssetBundle로 교체 가능
   [Header("프리팹")]
-  [SerializeField] private GameObject enemyPrefab;
+  [SerializeField] private GameObject[] enemyPrefabs;
 
   private int currentWave = 0;
   private bool isSpawning = false;
@@ -27,72 +26,55 @@ public class EnemySpawner : MonoBehaviour
 
   private void Start()
   {
+    currentWave = SaveData.Instance.info.currentWave;
     StartCoroutine(StartNextWave());
     doWaving = true;
   }
-
+  //---------------------------------------------------------------------------
   private void Update()
   {
     if (!doWaving) return; ;
     if (isSpawning) return;
-
-    if (alivingEnemyCount == 0)
-    {
-      if (isLastWave())
-      {
-        StartCoroutine(StageClear(3f));
-        Debug.Log("모든 웨이브 완료!");
-      }
-      else
-      {
-        StartCoroutine(StartNextWave(waveCooldown));
-      }
-    }
-  }
-
-  private bool isLastWave()
-  {
-    return currentWave >= waveEnemyCounts.Length;
-  }
-
-  private IEnumerator StageClear(float waitTime = 1.6f)
-  {
-    doWaving = false;
-    Debug.Log("스테이지 클리어!");
-    if (stageClearEffectPrefab != null)
-    {
-      var player = GameObject.Find("CreepyCuteChar");
-      Instantiate(stageClearEffectPrefab, player.transform.position, stageClearEffectPrefab.transform.rotation);
-      Debug.Log("###### 스테이지 클리어 이펙트 생성! #######");
-    }
-    yield return new WaitForSeconds(waitTime);
-    //SceneManagement.SceneManager.LoadScene("MainMenu");
-    Debug.Log("메인 메뉴로 돌아가기");
+    if (alivingEnemyCount > 0) return;
     
+    StartCoroutine(StartNextWave());
+    Debug.Log($"웨이브 {currentWave} 완료  남은 적 수: {alivingEnemyCount}");
+    SaveCurrentProgress();
   }
+
   //---------------------------------------------------------------------------
   private IEnumerator StartNextWave(float waitTime = 2f)
   {
     isSpawning = true;
 
     yield return new WaitForSeconds(waitTime);    
-    int enemyCount = waveEnemyCounts[currentWave];
-    for (int i = 0; i < enemyCount; i++)
-    {
-      SpawnEnemy();
-      yield return new WaitForSeconds(0.5f); // 스폰 간격 조절      
+    var waveStats = GameDataManager.Instance.GetWaveStatsByWave(currentWave + 1);
+    if (waveStats == null || waveStats.Count == 0) 
+      waveStats = GameDataManager.Instance.GetWaveStatsByWave(100); // 웨이브 데이터가 없으면 100번 웨이브 데이터로 대체 (마지막 웨이브 반복)
+    foreach (var waveStat in waveStats)
+    {     
+      for (int i = 0; i < waveStat.count; i++)
+      {
+        SpawnEnemy(waveStat.enemy_type);
+        yield return new WaitForSeconds(waveStat.spawn_interval); // 스폰 간격 조절      
+      }
     }
     currentWave++;
     isSpawning = false;    
   }
 
   //---------------------------------------------------------------------------
-  private void SpawnEnemy()
+  private void SpawnEnemy(int enemyType)
   {
+    if (enemyType < 1 || enemyType - 1 >= enemyPrefabs.Length) return;    
+
     int spawnIndex = Random.Range(0, spawnPoints.Length);
-    Vector3 spawnPosition = spawnPoints[spawnIndex].position + Random.insideUnitSphere * spawnRadius;
-    spawnPosition.y = 0; // 지면에 고정
-    var spawnObj = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    Vector3 spawnPosition = 
+      spawnPoints[spawnIndex].position + Random.insideUnitSphere * spawnRadius;
+    spawnPosition.y = 0; // 지면과 맞추기
+
+    var prefab = enemyPrefabs[enemyType - 1];    
+    var spawnObj = Instantiate(prefab, spawnPosition, Quaternion.identity);
     alivingEnemyCount++;
     //Debug.Log($"적 스폰! 현재 생존 적 수: {alivingEnemyCount}");
 
@@ -110,4 +92,15 @@ public class EnemySpawner : MonoBehaviour
   }
 
   //---------------------------------------------------------------------------
+  private void OnApplicationQuit()
+  {
+    SaveCurrentProgress();
+  }
+  // 게임 종료 시 현재 웨이브 저장
+  private void SaveCurrentProgress()
+  {
+    SaveData.Instance.info.currentWave = currentWave;
+    SaveData.Instance.Save();
+    Debug.Log($"게임 종료 - 현재 웨이브 {currentWave} 저장 완료");
+  }
 }

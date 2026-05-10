@@ -11104,7 +11104,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.92387956, z: 0, w: 0.38268343}
   m_LocalPosition: {x: 7.825909, y: 0, z: 7.825909}
-  m_LocalScale: {x: 1.8999999, y: 1.8999999, z: 1.8999999}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2568932968018798152}
@@ -11146,8 +11146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHP: 500
   attackDamage: 20
-  enemyType: 1
-  deathEffectPrefab: {fileID: 221124955577109573, guid: cf149e83c3f5e4187b66491d8c44dee6, type: 3}
   flashMaterial: {fileID: 2100000, guid: b2d597c941e94409aa3e4a3b3ff1fde1, type: 2}
   flashDuration: 0.1
 --- !u!114 &-8213971085622526312

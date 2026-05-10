@@ -26,7 +26,7 @@ MonoBehaviour:
     hp: 120
     atk: 13
     def: 7
-    spd: 5.4
+    spd: 5.2
     exp_required: 283
     version: 1
   - id: 3
@@ -34,7 +34,7 @@ MonoBehaviour:
     hp: 140
     atk: 16
     def: 9
-    spd: 5.8
+    spd: 5.4
     exp_required: 520
     version: 1
   - id: 4
@@ -42,7 +42,7 @@ MonoBehaviour:
     hp: 160
     atk: 19
     def: 11
-    spd: 6.2
+    spd: 5.6
     exp_required: 800
     version: 1
   - id: 5
@@ -50,8 +50,208 @@ MonoBehaviour:
     hp: 180
     atk: 22
     def: 13
+    spd: 5.8
+    exp_required: 1118
+    version: 1
+  - id: 6
+    level: 6
+    hp: 200
+    atk: 25
+    def: 15
+    spd: 6
+    exp_required: 1470
+    version: 1
+  - id: 7
+    level: 7
+    hp: 220
+    atk: 28
+    def: 17
+    spd: 6.2
+    exp_required: 1852
+    version: 1
+  - id: 8
+    level: 8
+    hp: 240
+    atk: 31
+    def: 19
+    spd: 6.4
+    exp_required: 2263
+    version: 1
+  - id: 9
+    level: 9
+    hp: 260
+    atk: 34
+    def: 21
     spd: 6.6
-    exp_required: 1150
+    exp_required: 2700
+    version: 1
+  - id: 10
+    level: 10
+    hp: 280
+    atk: 37
+    def: 23
+    spd: 6.8
+    exp_required: 3162
+    version: 1
+  - id: 11
+    level: 11
+    hp: 300
+    atk: 40
+    def: 25
+    spd: 7
+    exp_required: 3648
+    version: 1
+  - id: 12
+    level: 12
+    hp: 320
+    atk: 43
+    def: 27
+    spd: 7.2
+    exp_required: 4157
+    version: 1
+  - id: 13
+    level: 13
+    hp: 340
+    atk: 46
+    def: 29
+    spd: 7.4
+    exp_required: 4687
+    version: 1
+  - id: 14
+    level: 14
+    hp: 360
+    atk: 49
+    def: 31
+    spd: 7.6
+    exp_required: 5238
+    version: 1
+  - id: 15
+    level: 15
+    hp: 380
+    atk: 52
+    def: 33
+    spd: 7.8
+    exp_required: 5809
+    version: 1
+  - id: 16
+    level: 16
+    hp: 400
+    atk: 55
+    def: 35
+    spd: 8
+    exp_required: 6400
+    version: 1
+  - id: 17
+    level: 17
+    hp: 420
+    atk: 58
+    def: 37
+    spd: 8.2
+    exp_required: 7009
+    version: 1
+  - id: 18
+    level: 18
+    hp: 440
+    atk: 61
+    def: 39
+    spd: 8.4
+    exp_required: 7637
+    version: 1
+  - id: 19
+    level: 19
+    hp: 460
+    atk: 64
+    def: 41
+    spd: 8.6
+    exp_required: 8282
+    version: 1
+  - id: 20
+    level: 20
+    hp: 480
+    atk: 67
+    def: 43
+    spd: 8.8
+    exp_required: 8944
+    version: 1
+  - id: 21
+    level: 21
+    hp: 500
+    atk: 70
+    def: 45
+    spd: 9
+    exp_required: 9623
+    version: 1
+  - id: 22
+    level: 22
+    hp: 520
+    atk: 73
+    def: 47
+    spd: 9.2
+    exp_required: 10319
+    version: 1
+  - id: 23
+    level: 23
+    hp: 540
+    atk: 76
+    def: 49
+    spd: 9.4
+    exp_required: 11030
+    version: 1
+  - id: 24
+    level: 24
+    hp: 560
+    atk: 79
+    def: 51
+    spd: 9.6
+    exp_required: 11758
+    version: 1
+  - id: 25
+    level: 25
+    hp: 580
+    atk: 82
+    def: 53
+    spd: 9.8
+    exp_required: 12500
+    version: 1
+  - id: 26
+    level: 26
+    hp: 600
+    atk: 85
+    def: 55
+    spd: 10
+    exp_required: 13257
+    version: 1
+  - id: 27
+    level: 27
+    hp: 620
+    atk: 88
+    def: 57
+    spd: 10.2
+    exp_required: 14030
+    version: 1
+  - id: 28
+    level: 28
+    hp: 640
+    atk: 91
+    def: 59
+    spd: 10.4
+    exp_required: 14816
+    version: 1
+  - id: 29
+    level: 29
+    hp: 660
+    atk: 94
+    def: 61
+    spd: 10.6
+    exp_required: 15617
+    version: 1
+  - id: 30
+    level: 30
+    hp: 680
+    atk: 97
+    def: 63
+    spd: 10.8
+    exp_required: 16432
     version: 1
   EnemyStat:
   - id: 1
@@ -105,28 +305,1820 @@ MonoBehaviour:
   - id: 1
     wave: 1
     enemy_type: 1
-    count: 5
+    count: 6
     spawn_interval: 0.5
     cooldown: 3
     version: 1
   - id: 2
     wave: 2
     enemy_type: 1
-    count: 10
-    spawn_interval: 0.4
+    count: 7
+    spawn_interval: 0.5
     cooldown: 3
     version: 1
   - id: 3
-    wave: 2
+    wave: 3
+    enemy_type: 1
+    count: 8
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 4
+    wave: 4
+    enemy_type: 1
+    count: 9
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 5
+    wave: 5
+    enemy_type: 1
+    count: 10
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 6
+    wave: 6
+    enemy_type: 1
+    count: 11
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 7
+    wave: 7
+    enemy_type: 1
+    count: 12
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 8
+    wave: 8
+    enemy_type: 1
+    count: 13
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 9
+    wave: 9
+    enemy_type: 1
+    count: 14
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 10
+    wave: 10
+    enemy_type: 1
+    count: 15
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 11
+    wave: 11
+    enemy_type: 1
+    count: 16
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 12
+    wave: 11
     enemy_type: 2
     count: 5
     spawn_interval: 0.3
     cooldown: 3
     version: 1
-  - id: 4
-    wave: 3
+  - id: 13
+    wave: 12
+    enemy_type: 1
+    count: 17
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 14
+    wave: 12
+    enemy_type: 2
+    count: 6
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 15
+    wave: 13
+    enemy_type: 1
+    count: 18
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 16
+    wave: 13
+    enemy_type: 2
+    count: 6
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 17
+    wave: 14
+    enemy_type: 1
+    count: 19
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 18
+    wave: 14
+    enemy_type: 2
+    count: 7
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 19
+    wave: 15
+    enemy_type: 1
+    count: 20
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 20
+    wave: 15
+    enemy_type: 2
+    count: 7
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 21
+    wave: 16
+    enemy_type: 1
+    count: 21
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 22
+    wave: 16
+    enemy_type: 2
+    count: 8
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 23
+    wave: 17
+    enemy_type: 1
+    count: 22
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 24
+    wave: 17
+    enemy_type: 2
+    count: 8
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 25
+    wave: 18
+    enemy_type: 1
+    count: 23
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 26
+    wave: 18
+    enemy_type: 2
+    count: 9
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 27
+    wave: 19
+    enemy_type: 1
+    count: 24
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 28
+    wave: 19
+    enemy_type: 2
+    count: 9
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 29
+    wave: 20
+    enemy_type: 1
+    count: 25
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 30
+    wave: 20
+    enemy_type: 2
+    count: 10
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 31
+    wave: 21
+    enemy_type: 1
+    count: 26
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 32
+    wave: 21
+    enemy_type: 2
+    count: 10
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 33
+    wave: 22
+    enemy_type: 1
+    count: 27
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 34
+    wave: 22
+    enemy_type: 2
+    count: 11
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 35
+    wave: 23
+    enemy_type: 1
+    count: 28
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 36
+    wave: 23
+    enemy_type: 2
+    count: 11
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 37
+    wave: 24
+    enemy_type: 1
+    count: 29
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 38
+    wave: 24
+    enemy_type: 2
+    count: 12
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 39
+    wave: 25
+    enemy_type: 1
+    count: 30
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 40
+    wave: 25
+    enemy_type: 2
+    count: 12
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 41
+    wave: 26
+    enemy_type: 1
+    count: 31
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 42
+    wave: 26
+    enemy_type: 2
+    count: 13
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 43
+    wave: 27
+    enemy_type: 1
+    count: 32
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 44
+    wave: 27
+    enemy_type: 2
+    count: 13
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 45
+    wave: 28
+    enemy_type: 1
+    count: 33
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 46
+    wave: 28
+    enemy_type: 2
+    count: 14
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 47
+    wave: 29
+    enemy_type: 1
+    count: 34
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 48
+    wave: 29
+    enemy_type: 2
+    count: 14
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 49
+    wave: 30
+    enemy_type: 1
+    count: 35
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 50
+    wave: 30
+    enemy_type: 2
+    count: 15
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 51
+    wave: 31
+    enemy_type: 1
+    count: 31
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 52
+    wave: 31
+    enemy_type: 2
+    count: 15
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 53
+    wave: 31
     enemy_type: 3
-    count: 3
+    count: 6
     spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 54
+    wave: 32
+    enemy_type: 1
+    count: 32
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 55
+    wave: 32
+    enemy_type: 2
+    count: 16
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 56
+    wave: 32
+    enemy_type: 3
+    count: 6
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 57
+    wave: 33
+    enemy_type: 1
+    count: 33
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 58
+    wave: 33
+    enemy_type: 2
+    count: 16
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 59
+    wave: 33
+    enemy_type: 3
+    count: 6
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 60
+    wave: 34
+    enemy_type: 1
+    count: 34
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 61
+    wave: 34
+    enemy_type: 2
+    count: 17
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 62
+    wave: 34
+    enemy_type: 3
+    count: 6
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 63
+    wave: 35
+    enemy_type: 1
+    count: 35
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 64
+    wave: 35
+    enemy_type: 2
+    count: 17
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 65
+    wave: 35
+    enemy_type: 3
+    count: 7
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 66
+    wave: 36
+    enemy_type: 1
+    count: 36
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 67
+    wave: 36
+    enemy_type: 2
+    count: 18
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 68
+    wave: 36
+    enemy_type: 3
+    count: 7
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 69
+    wave: 37
+    enemy_type: 1
+    count: 37
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 70
+    wave: 37
+    enemy_type: 2
+    count: 18
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 71
+    wave: 37
+    enemy_type: 3
+    count: 7
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 72
+    wave: 38
+    enemy_type: 1
+    count: 38
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 73
+    wave: 38
+    enemy_type: 2
+    count: 19
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 74
+    wave: 38
+    enemy_type: 3
+    count: 7
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 75
+    wave: 39
+    enemy_type: 1
+    count: 39
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 76
+    wave: 39
+    enemy_type: 2
+    count: 19
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 77
+    wave: 39
+    enemy_type: 3
+    count: 7
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 78
+    wave: 40
+    enemy_type: 1
+    count: 40
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 79
+    wave: 40
+    enemy_type: 2
+    count: 20
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 80
+    wave: 40
+    enemy_type: 3
+    count: 8
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 81
+    wave: 41
+    enemy_type: 1
+    count: 41
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 82
+    wave: 41
+    enemy_type: 2
+    count: 20
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 83
+    wave: 41
+    enemy_type: 3
+    count: 8
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 84
+    wave: 42
+    enemy_type: 1
+    count: 42
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 85
+    wave: 42
+    enemy_type: 2
+    count: 21
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 86
+    wave: 42
+    enemy_type: 3
+    count: 8
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 87
+    wave: 43
+    enemy_type: 1
+    count: 43
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 88
+    wave: 43
+    enemy_type: 2
+    count: 21
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 89
+    wave: 43
+    enemy_type: 3
+    count: 8
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 90
+    wave: 44
+    enemy_type: 1
+    count: 44
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 91
+    wave: 44
+    enemy_type: 2
+    count: 22
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 92
+    wave: 44
+    enemy_type: 3
+    count: 8
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 93
+    wave: 45
+    enemy_type: 1
+    count: 45
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 94
+    wave: 45
+    enemy_type: 2
+    count: 22
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 95
+    wave: 45
+    enemy_type: 3
+    count: 9
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 96
+    wave: 46
+    enemy_type: 1
+    count: 46
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 97
+    wave: 46
+    enemy_type: 2
+    count: 23
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 98
+    wave: 46
+    enemy_type: 3
+    count: 9
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 99
+    wave: 47
+    enemy_type: 1
+    count: 47
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 100
+    wave: 47
+    enemy_type: 2
+    count: 23
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 101
+    wave: 47
+    enemy_type: 3
+    count: 9
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 102
+    wave: 48
+    enemy_type: 1
+    count: 48
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 103
+    wave: 48
+    enemy_type: 2
+    count: 24
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 104
+    wave: 48
+    enemy_type: 3
+    count: 9
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 105
+    wave: 49
+    enemy_type: 1
+    count: 49
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 106
+    wave: 49
+    enemy_type: 2
+    count: 24
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 107
+    wave: 49
+    enemy_type: 3
+    count: 9
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 108
+    wave: 50
+    enemy_type: 1
+    count: 50
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 109
+    wave: 50
+    enemy_type: 2
+    count: 25
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 110
+    wave: 50
+    enemy_type: 3
+    count: 10
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 111
+    wave: 51
+    enemy_type: 1
+    count: 51
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 112
+    wave: 51
+    enemy_type: 2
+    count: 25
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 113
+    wave: 51
+    enemy_type: 3
+    count: 10
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 114
+    wave: 52
+    enemy_type: 1
+    count: 52
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 115
+    wave: 52
+    enemy_type: 2
+    count: 26
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 116
+    wave: 52
+    enemy_type: 3
+    count: 10
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 117
+    wave: 53
+    enemy_type: 1
+    count: 53
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 118
+    wave: 53
+    enemy_type: 2
+    count: 26
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 119
+    wave: 53
+    enemy_type: 3
+    count: 10
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 120
+    wave: 54
+    enemy_type: 1
+    count: 54
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 121
+    wave: 54
+    enemy_type: 2
+    count: 27
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 122
+    wave: 54
+    enemy_type: 3
+    count: 10
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 123
+    wave: 55
+    enemy_type: 1
+    count: 55
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 124
+    wave: 55
+    enemy_type: 2
+    count: 27
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 125
+    wave: 55
+    enemy_type: 3
+    count: 11
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 126
+    wave: 56
+    enemy_type: 1
+    count: 56
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 127
+    wave: 56
+    enemy_type: 2
+    count: 28
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 128
+    wave: 56
+    enemy_type: 3
+    count: 11
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 129
+    wave: 57
+    enemy_type: 1
+    count: 57
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 130
+    wave: 57
+    enemy_type: 2
+    count: 28
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 131
+    wave: 57
+    enemy_type: 3
+    count: 11
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 132
+    wave: 58
+    enemy_type: 1
+    count: 58
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 133
+    wave: 58
+    enemy_type: 2
+    count: 29
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 134
+    wave: 58
+    enemy_type: 3
+    count: 11
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 135
+    wave: 59
+    enemy_type: 1
+    count: 59
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 136
+    wave: 59
+    enemy_type: 2
+    count: 29
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 137
+    wave: 59
+    enemy_type: 3
+    count: 11
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 138
+    wave: 60
+    enemy_type: 1
+    count: 60
+    spawn_interval: 0.3
+    cooldown: 3
+    version: 1
+  - id: 139
+    wave: 60
+    enemy_type: 2
+    count: 30
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 140
+    wave: 60
+    enemy_type: 3
+    count: 12
+    spawn_interval: 0.5
+    cooldown: 3
+    version: 1
+  - id: 141
+    wave: 61
+    enemy_type: 1
+    count: 61
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 142
+    wave: 61
+    enemy_type: 2
+    count: 30
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 143
+    wave: 61
+    enemy_type: 3
+    count: 15
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 144
+    wave: 62
+    enemy_type: 1
+    count: 62
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 145
+    wave: 62
+    enemy_type: 2
+    count: 31
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 146
+    wave: 62
+    enemy_type: 3
+    count: 15
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 147
+    wave: 63
+    enemy_type: 1
+    count: 63
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 148
+    wave: 63
+    enemy_type: 2
+    count: 31
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 149
+    wave: 63
+    enemy_type: 3
+    count: 15
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 150
+    wave: 64
+    enemy_type: 1
+    count: 64
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 151
+    wave: 64
+    enemy_type: 2
+    count: 32
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 152
+    wave: 64
+    enemy_type: 3
+    count: 16
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 153
+    wave: 65
+    enemy_type: 1
+    count: 65
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 154
+    wave: 65
+    enemy_type: 2
+    count: 32
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 155
+    wave: 65
+    enemy_type: 3
+    count: 16
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 156
+    wave: 66
+    enemy_type: 1
+    count: 66
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 157
+    wave: 66
+    enemy_type: 2
+    count: 33
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 158
+    wave: 66
+    enemy_type: 3
+    count: 16
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 159
+    wave: 67
+    enemy_type: 1
+    count: 67
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 160
+    wave: 67
+    enemy_type: 2
+    count: 33
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 161
+    wave: 67
+    enemy_type: 3
+    count: 16
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 162
+    wave: 68
+    enemy_type: 1
+    count: 68
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 163
+    wave: 68
+    enemy_type: 2
+    count: 34
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 164
+    wave: 68
+    enemy_type: 3
+    count: 17
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 165
+    wave: 69
+    enemy_type: 1
+    count: 69
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 166
+    wave: 69
+    enemy_type: 2
+    count: 34
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 167
+    wave: 69
+    enemy_type: 3
+    count: 17
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 168
+    wave: 70
+    enemy_type: 1
+    count: 70
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 169
+    wave: 70
+    enemy_type: 2
+    count: 35
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 170
+    wave: 70
+    enemy_type: 3
+    count: 17
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 171
+    wave: 71
+    enemy_type: 1
+    count: 71
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 172
+    wave: 71
+    enemy_type: 2
+    count: 35
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 173
+    wave: 71
+    enemy_type: 3
+    count: 17
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 174
+    wave: 72
+    enemy_type: 1
+    count: 72
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 175
+    wave: 72
+    enemy_type: 2
+    count: 36
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 176
+    wave: 72
+    enemy_type: 3
+    count: 18
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 177
+    wave: 73
+    enemy_type: 1
+    count: 73
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 178
+    wave: 73
+    enemy_type: 2
+    count: 36
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 179
+    wave: 73
+    enemy_type: 3
+    count: 18
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 180
+    wave: 74
+    enemy_type: 1
+    count: 74
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 181
+    wave: 74
+    enemy_type: 2
+    count: 37
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 182
+    wave: 74
+    enemy_type: 3
+    count: 18
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 183
+    wave: 75
+    enemy_type: 1
+    count: 75
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 184
+    wave: 75
+    enemy_type: 2
+    count: 37
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 185
+    wave: 75
+    enemy_type: 3
+    count: 18
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 186
+    wave: 76
+    enemy_type: 1
+    count: 76
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 187
+    wave: 76
+    enemy_type: 2
+    count: 38
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 188
+    wave: 76
+    enemy_type: 3
+    count: 19
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 189
+    wave: 77
+    enemy_type: 1
+    count: 77
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 190
+    wave: 77
+    enemy_type: 2
+    count: 38
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 191
+    wave: 77
+    enemy_type: 3
+    count: 19
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 192
+    wave: 78
+    enemy_type: 1
+    count: 78
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 193
+    wave: 78
+    enemy_type: 2
+    count: 39
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 194
+    wave: 78
+    enemy_type: 3
+    count: 19
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 195
+    wave: 79
+    enemy_type: 1
+    count: 79
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 196
+    wave: 79
+    enemy_type: 2
+    count: 39
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 197
+    wave: 79
+    enemy_type: 3
+    count: 19
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 198
+    wave: 80
+    enemy_type: 1
+    count: 80
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 199
+    wave: 80
+    enemy_type: 2
+    count: 40
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 200
+    wave: 80
+    enemy_type: 3
+    count: 20
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 201
+    wave: 81
+    enemy_type: 1
+    count: 81
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 202
+    wave: 81
+    enemy_type: 2
+    count: 40
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 203
+    wave: 81
+    enemy_type: 3
+    count: 20
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 204
+    wave: 82
+    enemy_type: 1
+    count: 82
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 205
+    wave: 82
+    enemy_type: 2
+    count: 41
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 206
+    wave: 82
+    enemy_type: 3
+    count: 20
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 207
+    wave: 83
+    enemy_type: 1
+    count: 83
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 208
+    wave: 83
+    enemy_type: 2
+    count: 41
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 209
+    wave: 83
+    enemy_type: 3
+    count: 20
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 210
+    wave: 84
+    enemy_type: 1
+    count: 84
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 211
+    wave: 84
+    enemy_type: 2
+    count: 42
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 212
+    wave: 84
+    enemy_type: 3
+    count: 21
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 213
+    wave: 85
+    enemy_type: 1
+    count: 85
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 214
+    wave: 85
+    enemy_type: 2
+    count: 42
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 215
+    wave: 85
+    enemy_type: 3
+    count: 21
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 216
+    wave: 86
+    enemy_type: 1
+    count: 86
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 217
+    wave: 86
+    enemy_type: 2
+    count: 43
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 218
+    wave: 86
+    enemy_type: 3
+    count: 21
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 219
+    wave: 87
+    enemy_type: 1
+    count: 87
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 220
+    wave: 87
+    enemy_type: 2
+    count: 43
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 221
+    wave: 87
+    enemy_type: 3
+    count: 21
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 222
+    wave: 88
+    enemy_type: 1
+    count: 88
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 223
+    wave: 88
+    enemy_type: 2
+    count: 44
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 224
+    wave: 88
+    enemy_type: 3
+    count: 22
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 225
+    wave: 89
+    enemy_type: 1
+    count: 89
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 226
+    wave: 89
+    enemy_type: 2
+    count: 44
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 227
+    wave: 89
+    enemy_type: 3
+    count: 22
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 228
+    wave: 90
+    enemy_type: 1
+    count: 90
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 229
+    wave: 90
+    enemy_type: 2
+    count: 45
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 230
+    wave: 90
+    enemy_type: 3
+    count: 22
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 231
+    wave: 91
+    enemy_type: 1
+    count: 91
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 232
+    wave: 91
+    enemy_type: 2
+    count: 45
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 233
+    wave: 91
+    enemy_type: 3
+    count: 22
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 234
+    wave: 92
+    enemy_type: 1
+    count: 92
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 235
+    wave: 92
+    enemy_type: 2
+    count: 46
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 236
+    wave: 92
+    enemy_type: 3
+    count: 23
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 237
+    wave: 93
+    enemy_type: 1
+    count: 93
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 238
+    wave: 93
+    enemy_type: 2
+    count: 46
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 239
+    wave: 93
+    enemy_type: 3
+    count: 23
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 240
+    wave: 94
+    enemy_type: 1
+    count: 94
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 241
+    wave: 94
+    enemy_type: 2
+    count: 47
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 242
+    wave: 94
+    enemy_type: 3
+    count: 23
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 243
+    wave: 95
+    enemy_type: 1
+    count: 95
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 244
+    wave: 95
+    enemy_type: 2
+    count: 47
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 245
+    wave: 95
+    enemy_type: 3
+    count: 23
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 246
+    wave: 96
+    enemy_type: 1
+    count: 96
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 247
+    wave: 96
+    enemy_type: 2
+    count: 48
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 248
+    wave: 96
+    enemy_type: 3
+    count: 24
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 249
+    wave: 97
+    enemy_type: 1
+    count: 97
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 250
+    wave: 97
+    enemy_type: 2
+    count: 48
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 251
+    wave: 97
+    enemy_type: 3
+    count: 24
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 252
+    wave: 98
+    enemy_type: 1
+    count: 98
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 253
+    wave: 98
+    enemy_type: 2
+    count: 49
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 254
+    wave: 98
+    enemy_type: 3
+    count: 24
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 255
+    wave: 99
+    enemy_type: 1
+    count: 99
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 256
+    wave: 99
+    enemy_type: 2
+    count: 49
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 257
+    wave: 99
+    enemy_type: 3
+    count: 24
+    spawn_interval: 0.4
+    cooldown: 3
+    version: 1
+  - id: 258
+    wave: 100
+    enemy_type: 1
+    count: 100
+    spawn_interval: 0.25
+    cooldown: 3
+    version: 1
+  - id: 259
+    wave: 100
+    enemy_type: 2
+    count: 50
+    spawn_interval: 0.2
+    cooldown: 3
+    version: 1
+  - id: 260
+    wave: 100
+    enemy_type: 3
+    count: 25
+    spawn_interval: 0.4
     cooldown: 3
     version: 1

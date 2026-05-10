@@ -20,6 +20,8 @@ public class PlayerStateMachine : MonoBehaviour
   public void GainEXP(float amount)
   {
     currentEXP += amount;
+    SaveData.Instance.info.currentEXP = currentEXP; // 경험치 저장
+    SaveData.Instance.info.currentLevel = currentLevel; // 레벨 저장
     var stat = GameDataManager.Instance.GetPlayerStat(currentLevel);
     PlayerExpUI expUI = GetComponent<PlayerExpUI>();
     if (expUI != null)
@@ -39,6 +41,7 @@ public class PlayerStateMachine : MonoBehaviour
     var stat = GameDataManager.Instance.GetPlayerStat(currentLevel);
     controller.MoveSpeed = stat.spd; // 레벨업 시 스피드 증가
     Debug.Log($"### 레벨업! 현재 레벨: {currentLevel}, 이동 속도: {controller.MoveSpeed}");
+    SaveData.Instance.info.currentLevel = currentLevel; // 레벨 저장
   }
 
   //---------------------------------------------------------------------------
@@ -59,9 +62,16 @@ public class PlayerStateMachine : MonoBehaviour
   //---------------------------------------------------------------------------
   private void Start()
   {
-    var stat = GameDataManager.Instance.GetPlayerStat(1); // 레벨 1 스탯으로 초기화
+    var saveLevel = SaveData.Instance.info.currentLevel;
+    var saveExp = SaveData.Instance.info.currentEXP;
+    currentLevel = saveLevel > 0 ? saveLevel : 1; // 저장된 레벨이 있으면 불러오고, 없으면 1로 초기화
+    currentEXP = saveExp > 0 ? saveExp : 0f; // 저장된 경험치가 있으면 불러오고, 없으면 0으로 초기화
+    
+    var stat = GameDataManager.Instance.GetPlayerStat(currentLevel); // 저장된 레벨에 해당하는 스탯으로 초기화
     controller.MoveSpeed = stat.spd;
     
+    GetComponent<PlayerHP>().SetMaxHP(stat.hp); // HP 초기화
+    GetComponent<PlayerExpUI>().UpdateUI(); // EXP UI 업데이트
   }
   //---------------------------------------------------------------------------
   private void Update()
@@ -70,4 +80,10 @@ public class PlayerStateMachine : MonoBehaviour
   }
 
   //---------------------------------------------------------------------------
+  private void OnApplicationQuit()
+  {
+    SaveData.Instance.info.currentEXP = currentEXP;
+    SaveData.Instance.info.currentLevel = currentLevel;
+    SaveData.Instance.Save();
+  }
 }
