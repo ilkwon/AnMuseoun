@@ -33,7 +33,32 @@ public class Enemy : MonoBehaviour
   [SerializeField] private float flashDuration = 0.1f;
   private MeshRenderer[] meshRenderers;
   private Material[] originalMaterials;
+  public float Def => stat.def; // 방어력 추가
+  //---------------------------------------------------------------------------
+  // 
+  void Reset()
+  {
 
+    currentHP = maxHP;
+
+    // 피격 플래시 원래대로 복원.
+    for (int i = 0; i < meshRenderers.Length; i++)
+    {
+      meshRenderers[i].sharedMaterial = originalMaterials[i];
+    }
+
+    // HP UI 초기화
+    if (hpFill != null)
+    {
+      var scale = hpFill.localScale;
+      scale.x = hpFillMaxScaleX;
+      hpFill.localScale = scale;
+      
+      var pos = hpFill.localPosition;
+      pos.x = hpFillStartX;
+      hpFill.localPosition = pos;    
+    }
+  }
   //---------------------------------------------------------------------------
   void Start()
   {
@@ -41,8 +66,6 @@ public class Enemy : MonoBehaviour
     stat = GameDataManager.Instance.GetEnemyStat(enemyType);
     maxHP = stat.hp;
     attackDamage = stat.atk;
-
-    currentHP = maxHP;
 
     hpFill = transform.Find("Hips/Spine/Chest/Neck/Head/HPBar/HP_Fill");
     if (hpFill != null)
@@ -55,11 +78,12 @@ public class Enemy : MonoBehaviour
     meshRenderers = GetComponentsInChildren<MeshRenderer>();
     originalMaterials = new Material[meshRenderers.Length];
     for (int i = 0; i < meshRenderers.Length; i++)
-      {
-        originalMaterials[i] = new Material(meshRenderers[i].sharedMaterial); // 원래 메터리얼 복사본 저장
-        meshRenderers[i].sharedMaterial = originalMaterials[i]; // 인스턴스화된 메터리얼로 교체
-      }
-
+    {
+      originalMaterials[i] = new Material(meshRenderers[i].sharedMaterial); // 원래 메터리얼 복사본 저장
+      meshRenderers[i].sharedMaterial = originalMaterials[i]; // 인스턴스화된 메터리얼로 교체
+    }
+    
+    Reset();
   }
 
   //---------------------------------------------------------------------------
@@ -67,7 +91,8 @@ public class Enemy : MonoBehaviour
   public void TakeDamage(float damage)
   {
     if (isDead) return;
-
+    
+    //Debug.Log($"{name} 피격 | damage:{damage} | HP:{currentHP} → {currentHP - damage}");
     currentHP -= damage;
     currentHP = Mathf.Max(0, currentHP);
 
@@ -121,9 +146,9 @@ public class Enemy : MonoBehaviour
     {
       Instantiate(deathEffectPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
     }
-
+    
     OnDeath?.Invoke(this);
-    Destroy(gameObject, 0.3f);
+    //Destroy(gameObject, 0.3f);
 
   }
 
@@ -135,6 +160,14 @@ public class Enemy : MonoBehaviour
     {
       playerSM.GainEXP(stat.exp_drop);
     }
+  }
+
+  public void Initialize()
+  {
+    isDead = false;
+    OnDeath = null;
+
+    Reset();
   }
   //---------------------------------------------------------------------------
 }

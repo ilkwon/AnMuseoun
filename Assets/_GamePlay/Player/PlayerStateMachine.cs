@@ -32,7 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
       currentEXP -= stat.exp_required;
       LevelUp();
     }
-    Debug.Log($"경험치 획득: {amount}, 현재 EXP: {currentEXP}/{stat.exp_required}");
+//    Debug.Log($"경험치 획득: {amount}, 현재 EXP: {currentEXP}/{stat.exp_required}");
   }
   //---------------------------------------------------------------------------
   private void LevelUp()

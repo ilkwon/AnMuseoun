@@ -14,8 +14,9 @@ public class PlayerAttackState : IState
   public PlayerAttackState(PlayerStateMachine owner)
   {
     this.owner = owner;
-
-    var trailObj = owner.transform.Find("Hips/Spine/Chest/LeftShoulder/LeftUpperArm/LeftLowerArm/LeftHand/AttackTrail");
+    string trail =
+      "Hips/Spine/Chest/LeftShoulder/LeftUpperArm/LeftLowerArm/LeftHand/AttackTrail";
+    var trailObj = owner.transform.Find(trail);
     if (trailObj != null)
     {
       attackTrail = trailObj.GetComponent<TrailRenderer>();
@@ -37,7 +38,7 @@ public class PlayerAttackState : IState
       attackTrail.Clear();
       attackTrail.emitting = true;
     }
-    if (handFire != null) handFire.Play();  
+    if (handFire != null) handFire.Play();
   }
 
   //---------------------------------------------------------------------------
@@ -67,31 +68,32 @@ public class PlayerAttackState : IState
   //---------------------------------------------------------------------------
   private void DealDamage()
   {
-    var result = DamageCalculator.Calculate(owner.CurrentLevel, WeaponType.Axe);
-    
-
-    SoundManager.Instance.PlayHit();
-
-    // 크리티컬 히트 시 카메라 흔들림    
-    if (result.isCritical)
-      Camera.main.GetComponent<CameraController>().Shake(0.12f, 0.5f);
-    
+    bool anyCritical = false;
     var hits = Physics.OverlapSphere(
       owner.transform.position,
       GameConst.AttackRange);
-      
+
     foreach (var hit in hits)
     {
       var enemy = hit.GetComponent<Enemy>();
       if (enemy != null)
-      {        
+      {
+        var result = DamageCalculator.Calculate(owner.CurrentLevel, WeaponType.Axe, enemy.Def);
+        if (result.isCritical)
+          anyCritical = true;
+
         enemy.TakeDamage(result.damage);
         //Debug.Log($"Dealt {result.damage} damage to {enemy.name} (Critical: {result.isCritical})"); 
         var ai = enemy.GetComponent<EnemyAI>();
         if (ai != null)
-          ai.Knockback(owner.transform.position, 8f);          
+          ai.Knockback(owner.transform.position, 8f);
       }
     }
+
+    if (anyCritical)
+      Camera.main.GetComponent<CameraController>().Shake(0.12f, 0.5f);
+
+    SoundManager.Instance.PlayHit();
   }
 
   //---------------------------------------------------------------------------
@@ -100,11 +102,11 @@ public class PlayerAttackState : IState
     // 프리팹 로딩 (최초 1회만)
     if (lightningPrefab == null)
     {
-      #if UNITY_EDITOR
+#if UNITY_EDITOR
       lightningPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(
         "Assets/_Project/Prefabs/LightningBolt.prefab"
       );
-      #endif
+#endif
     }
 
     if (lightningPrefab == null) return;
@@ -113,7 +115,7 @@ public class PlayerAttackState : IState
     var spawnPos = owner.transform.position + Vector3.up * 3f + owner.transform.forward * 1f;
     var rotation = Quaternion.LookRotation(owner.transform.forward);
 
-  //  Object.Instantiate(lightningPrefab, spawnPos, rotation);
+    //  Object.Instantiate(lightningPrefab, spawnPos, rotation);
   }
 
   //---------------------------------------------------------------------------

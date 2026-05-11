@@ -26,18 +26,35 @@ public class EnemyAI : MonoBehaviour
     detectRange = stat.detect_range;
     attackRange = stat.attack_range;
     attackCooldown = stat.attack_cooldown;
-    navAgent.speed = stat.spd;    
+    navAgent.speed = stat.spd;
 
     var playerObj = GameObject.Find("CreepyCuteChar");
     if (playerObj != null)
       player = playerObj.transform;
+
+//    Debug.Log($"{name} isOnNavMesh:{navAgent.isOnNavMesh} | pos:{transform.position}");
+  }
+  //---------------------------------------------------------------------------
+  public void Initilize()
+  {
+    isKnockback = false;
+    lastAttackTime = -Mathf.Infinity;
+
+    navAgent.ResetPath();
   }
   //---------------------------------------------------------------------------  
   void Update()
   {
+
     // 적이 매 프레임 해야 할 일을 먼저 써본다
-    // 빨간줄은 나중에 Cmd+. 로 채운다
     if (isKnockback) return;
+
+
+    if (player == null)
+    {
+      Debug.LogWarning($"{name} player를 못 찾음");
+      return;
+    }
 
     float distance = Vector3.Distance(transform.position, player.transform.position);
     if (distance <= attackRange)
@@ -45,7 +62,7 @@ public class EnemyAI : MonoBehaviour
     else if (distance <= detectRange)
       Chase();
     else
-      Idle();
+      Idle();    
   }
   //---------------------------------------------------------------------------  
   private void Idle()

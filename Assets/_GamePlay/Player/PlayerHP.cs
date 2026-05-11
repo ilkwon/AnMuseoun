@@ -52,7 +52,7 @@ public class PlayerHP : MonoBehaviour
     if (IsDead) return;
 
     currentHP -= damage;
-    Debug.Log($"플레이어 HP: {currentHP}/{maxHP}");
+//    Debug.Log($"플레이어 HP: {currentHP}/{maxHP}");
     UpdateHPUI();
 
     if (currentHP <= 0f)
@@ -126,4 +126,11 @@ public class PlayerHP : MonoBehaviour
     UpdateHPUI();
   }
   //---------------------------------------------------------------------------
+#if UNITY_EDITOR
+  private void OnDisable()
+  {
+    if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+      HardcoreReset();
+  }
+#endif
 }
