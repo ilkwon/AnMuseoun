@@ -7,7 +7,7 @@
 /// </summary>
 public interface ICombatable
 {
-  float CurrentHP { get; }
+  float CurrentHp { get; }
   
   float MaxHp { get; }
   void TakeDamage(float damage);

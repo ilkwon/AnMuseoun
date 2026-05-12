@@ -1,31 +1,29 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ICombatable, IStatOwner
 {
-  [Header("스탯")]
-  [SerializeField] private float maxHP = 100f;
-  [SerializeField] private float attackDamage = 10f;// 나중에 밸런스 데이터로 교체할 부분
-
   [Header("타입")]
-  [SerializeField] private readonly EnemyType enemyType = EnemyType.Skeleton;
-  public EnemyType Type => enemyType;
-  public float CurrentHP => currentHP;
-  public float AttackDamage => attackDamage;
-  public bool IsDead => isDead;
-  private float currentHP;
-  public Action<Enemy> OnDeath;  // 적이 죽었을 때 호출되는 이벤트
+  [SerializeField] private EnemyType enemyType = EnemyType.Skeleton;
 
   [Header("사망 이펙트")]
-  [SerializeField] private readonly GameObject deathEffectPrefab;
+  [SerializeField] private GameObject deathEffectPrefab;
 
+  public EnemyType Type => enemyType;
+  public float MaxHp => _stats.FinalHp;
+  public float CurrentHp => _currentHP;
+  public float AttackDamage => _stats.atk;
+  public bool IsDead => isDead;
+  public Action<Enemy> OnDeath;  // 적이 죽었을 때 호출되는 이벤트
+  private float _currentHP;
+  // 컴포넌트 캐싱
   private Animator animator;
   private Transform hpFill;
   private float hpFillMaxScaleX;
   private float hpFillStartX;  // 초기 로컬 X 위치
   private bool isDead = false;
-  private EnemyStatEntity stat; // 적 스탯 데이터
 
   // 피격 플래시
   [Header("피격 플래시")]
@@ -33,39 +31,40 @@ public class Enemy : MonoBehaviour
   [SerializeField] private float flashDuration = 0.1f;
   private MeshRenderer[] meshRenderers;
   private Material[] originalMaterials;
-  public float Def => stat.def; // 방어력 추가
+  private StatData _stats;
+  public float Def => _stats.def; // 방어력 추가
+
+  public StatData Stats => _stats;
+
   //---------------------------------------------------------------------------
   // 
   void Reset()
   {
-
-    currentHP = maxHP;
-
-    // 피격 플래시 원래대로 복원.
-    for (int i = 0; i < meshRenderers.Length; i++)
+    _currentHP = _stats.FinalHp;
+    if (meshRenderers != null && originalMaterials != null)
     {
-      meshRenderers[i].sharedMaterial = originalMaterials[i];
+      // 피격 플래시 원래대로 복원.
+      for (int i = 0; i < meshRenderers.Length; i++)
+      {
+        meshRenderers[i].sharedMaterial = originalMaterials[i];
+      }
     }
-
     // HP UI 초기화
     if (hpFill != null)
     {
       var scale = hpFill.localScale;
       scale.x = hpFillMaxScaleX;
       hpFill.localScale = scale;
-      
+
       var pos = hpFill.localPosition;
       pos.x = hpFillStartX;
-      hpFill.localPosition = pos;    
+      hpFill.localPosition = pos;
     }
   }
   //---------------------------------------------------------------------------
   void Start()
   {
     animator = GetComponent<Animator>();
-    stat = GameDataManager.Instance.GetEnemyStat(enemyType);
-    maxHP = stat.hp;
-    attackDamage = stat.atk;
 
     hpFill = transform.Find("Hips/Spine/Chest/Neck/Head/HPBar/HP_Fill");
     if (hpFill != null)
@@ -82,26 +81,42 @@ public class Enemy : MonoBehaviour
       originalMaterials[i] = new Material(meshRenderers[i].sharedMaterial); // 원래 메터리얼 복사본 저장
       meshRenderers[i].sharedMaterial = originalMaterials[i]; // 인스턴스화된 메터리얼로 교체
     }
-    
+  }
+  //---------------------------------------------------------------------------
+  public void Setup(StatData statData)
+  {
+    _stats = statData;
+    _currentHP = _stats.FinalHp;
+
     Reset();
   }
-
   //---------------------------------------------------------------------------
   // 데미지 입는 함수
   public void TakeDamage(float damage)
   {
     if (isDead) return;
-    
-    //Debug.Log($"{name} 피격 | damage:{damage} | HP:{currentHP} → {currentHP - damage}");
-    currentHP -= damage;
-    currentHP = Mathf.Max(0, currentHP);
+
+    _currentHP -= damage;
+    _currentHP = Mathf.Max(0, _currentHP);
 
     // 피격 플래시 시작
     StartCoroutine(FlashCoroutine());
 
+    UpdateUI_HP();
+
+    if (_currentHP <= 0)
+    {
+      Die();
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  private void UpdateUI_HP()
+  {
     if (hpFill != null)
     {
-      float ratio = currentHP / maxHP;
+      if (_stats.FinalHp <= 0) return;
+      float ratio = _currentHP / _stats.FinalHp;
 
       // 스케일 줄이기
       var s = hpFill.localScale;
@@ -112,11 +127,6 @@ public class Enemy : MonoBehaviour
       var p = hpFill.localPosition;
       p.x = hpFillStartX - (hpFillMaxScaleX * (1f - ratio) * 0.5f);
       hpFill.localPosition = p;
-    }
-
-    if (currentHP <= 0)
-    {
-      Die();
     }
   }
 
@@ -146,7 +156,7 @@ public class Enemy : MonoBehaviour
     {
       Instantiate(deathEffectPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
     }
-    
+
     OnDeath?.Invoke(this);
     //Destroy(gameObject, 0.3f);
 
@@ -158,10 +168,10 @@ public class Enemy : MonoBehaviour
     var player = GameObject.FindWithTag("Player");
     if (player.TryGetComponent<PlayerStateMachine>(out var playerSM))
     {
-      playerSM.GainEXP(stat.exp_drop);
+      playerSM.GainEXP(_stats.expDrop);
     }
   }
-
+  //---------------------------------------------------------------------------
   public void Initialize()
   {
     isDead = false;

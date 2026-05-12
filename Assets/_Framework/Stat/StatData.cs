@@ -20,7 +20,7 @@ public struct StatData
   public float buffMultiplier;
 
   // 보상 (Enemy 전용)
-  public int expDrop;
+  public float expDrop;
   public int soulDrop;
 
   // buff 적용 최종값

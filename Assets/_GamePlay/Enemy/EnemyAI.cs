@@ -5,34 +5,36 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-  [Header("AI")]
-  [SerializeField] private float detectRange = 50f;
-  [SerializeField] private float attackRange = 2.5f;
-  [SerializeField] private float attackCooldown = 2f;
+  private float detectRange;
+  private float attackRange;
+  private float attackCooldown;
   private Enemy enemy;
   private NavMeshAgent navAgent;
   private Animator animator;
   private Transform player;
   private float lastAttackTime = -Mathf.Infinity;
   private bool isKnockback = false; // 넉백 중인지 여부
+
   //---------------------------------------------------------------------------  
-  void Start()
+  void Awake()
   {
     enemy = GetComponent<Enemy>();
     navAgent = GetComponent<NavMeshAgent>();
     animator = GetComponent<Animator>();
-
-    var stat = GameDataManager.Instance.GetEnemyStat(enemy.Type);
-    detectRange = stat.detect_range;
-    attackRange = stat.attack_range;
-    attackCooldown = stat.attack_cooldown;
-    navAgent.speed = stat.spd;
 
     var playerObj = GameObject.Find("CreepyCuteChar");
     if (playerObj != null)
       player = playerObj.transform;
 
 //    Debug.Log($"{name} isOnNavMesh:{navAgent.isOnNavMesh} | pos:{transform.position}");
+  }
+  //---------------------------------------------------------------------------
+  public void Setup(StatData statData)
+  {
+    detectRange = statData.detectRange;
+    attackRange = statData.attackRange;
+    attackCooldown = statData.attackCooldown;
+    navAgent.speed = statData.spd;
   }
   //---------------------------------------------------------------------------
   public void Initilize()
@@ -48,7 +50,7 @@ public class EnemyAI : MonoBehaviour
 
     // 적이 매 프레임 해야 할 일을 먼저 써본다
     if (isKnockback) return;
-
+    if (!navAgent.isOnNavMesh) return;  
 
     if (player == null)
     {

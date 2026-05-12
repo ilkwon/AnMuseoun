@@ -22,8 +22,8 @@ public class EnemySpawner : MonoBehaviour
   private Dictionary<int, Queue<Enemy>> _enemyPool = new();
   private int currentWave = 0;
   private bool isSpawning = false;
-  private bool doWaving;
-  private int alivingEnemyCount;
+  private bool doWaving;          // 웨이브 진행 여부 제어
+  private int alivingEnemyCount;  // 현재 생존 중인 적 수
 
   private void Start()
   {
@@ -79,15 +79,14 @@ public class EnemySpawner : MonoBehaviour
 
     Enemy enemy;
     
+    // 풀링된 적이 있으면 재사용, 없으면 새로 생성
     if (_enemyPool.ContainsKey(enemyType) && _enemyPool[enemyType].Count > 0)
     {
       enemy = _enemyPool[enemyType].Dequeue();
       enemy.transform.position = spawnPosition;
       enemy.gameObject.SetActive(true);
       enemy.Initialize();
-      var ai = enemy.GetComponent<EnemyAI>();
-      ai.Initilize();
-            
+      enemy.GetComponent<EnemyAI>().Initilize();          
     }
     else
     {
@@ -98,8 +97,26 @@ public class EnemySpawner : MonoBehaviour
 
     if (enemy != null)
     {
+      // StatData 생성 + buff 적용 push
+      var baseStat = GameDataManager.Instance.GetEnemyStat(enemy.Type);
+      var statData = new StatData
+      {
+        hp              = baseStat.hp,
+        atk             = baseStat.atk,
+        def             = baseStat.def,
+        spd             = baseStat.spd,
+        detectRange     = baseStat.detect_range,
+        attackRange     = baseStat.attack_range,
+        attackCooldown  = baseStat.attack_cooldown,
+        expDrop         =  baseStat.exp_drop,
+        buffMultiplier  = 1f // 웨이브 버프는 나중에 GameDataManager에서 가져와서 곱해주는 방식으로 적용할 예정    
+      };
+
+      enemy.Setup(statData);
+      enemy.GetComponent<EnemyAI>().Setup(statData);
+      
       enemy.OnDeath += HandleEnemyDeath;
-      alivingEnemyCount++;
+      alivingEnemyCount++;     
     }
   }
   //---------------------------------------------------------------------------
