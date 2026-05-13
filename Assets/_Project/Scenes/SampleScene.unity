@@ -205,6 +205,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2092545728998910766, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
+      propertyPath: m_Time
+      value: 1.61
+      objectReference: {fileID: 0}
     - target: {fileID: 4092128165878855201, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
       propertyPath: m_Name
       value: CreepyCuteChar
@@ -247,6 +251,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5253794301148865640, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5652541207060932096, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5652541207060932096, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5652541207060932096, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5652541207060932096, guid: 3413b0f05f61f46e5b5ab50106f831cb, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

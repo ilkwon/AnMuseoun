@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 
 public partial class SaveData : MonoBehaviour
 {
+
   //----------------------------------------------------------------------------
   public static SaveData Instance
   {
@@ -16,6 +17,13 @@ public partial class SaveData : MonoBehaviour
     {
       if (s_instance == null)
       {
+        if (_isQuitting)
+        { 
+          string msg = $"[SaveData] 종료 중 접근 차단\n{System.Environment.StackTrace}";
+          Debug.LogWarning(msg);
+          return null;
+        }
+
         GameObject obj = new GameObject("SaveData");
         s_instance = obj.AddComponent<SaveData>();
       }
@@ -25,7 +33,7 @@ public partial class SaveData : MonoBehaviour
   public Info info;
   private string path;
   private static SaveData s_instance;
-
+  private static bool _isQuitting = false;
   //----------------------------------------------------------------------------
   void Awake()
   {
@@ -466,4 +474,9 @@ public partial class SaveData : MonoBehaviour
     }
   }
   //----------------------------------------------------------------------------
+  void OnApplicationQuit()
+  {
+    _isQuitting = true;
+  }
+
 }

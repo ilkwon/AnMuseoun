@@ -98,7 +98,8 @@ public StatData Stats => _stats;
   //---------------------------------------------------------------------------
   private void Update()
   {
-    fsm.Update();
+    if (fsm.CurrentState != null)
+      fsm.Update();
   }
 
 

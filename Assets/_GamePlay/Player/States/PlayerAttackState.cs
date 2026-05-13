@@ -15,14 +15,15 @@ public class PlayerAttackState : IState
   {
     this.owner = owner;
     string trail =
-      "Hips/Spine/Chest/LeftShoulder/LeftUpperArm/LeftLowerArm/LeftHand/AttackTrail";
+        "Hips/Spine/Chest/LeftShoulder/LeftUpperArm/LeftLowerArm/LeftHand/WeaponHolder/BattleAxe/HeadCenter/AttackTrail";
     var trailObj = owner.transform.Find(trail);
+
+    Debug.Log($"AttackTrail 찾음: {trailObj != null}");  // ← 추가
+
     if (trailObj != null)
     {
       attackTrail = trailObj.GetComponent<TrailRenderer>();
-      var fireObj = trailObj.Find("HandFire");
-      if (fireObj != null)
-        handFire = fireObj.GetComponent<ParticleSystem>();
+      Debug.Log($"TrailRenderer: {attackTrail != null}");  // ← 추가
     }
   }
 
@@ -36,7 +37,7 @@ public class PlayerAttackState : IState
     if (attackTrail != null)
     {
       attackTrail.Clear();
-      attackTrail.emitting = true;
+      attackTrail.emitting = false;
     }
     if (handFire != null) handFire.Play();
   }
@@ -91,7 +92,16 @@ public class PlayerAttackState : IState
     }
 
     if (anyCritical)
+    {
+      if (attackTrail != null)
+      {
+        attackTrail.Clear();
+        //attackTrail.startColor = Color.yellow;
+        //attackTrail.endColor = Color.red;
+        attackTrail.emitting = true;
+      }
       Camera.main.GetComponent<CameraController>().Shake(0.12f, 0.5f);
+    }
 
     SoundManager.Instance.PlayHit();
   }

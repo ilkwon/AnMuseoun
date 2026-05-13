@@ -119,6 +119,8 @@ public class EnemySpawner : MonoBehaviour
   // 게임 종료 시 현재 웨이브 저장
   private void SaveCurrentProgress()
   {
+    if (SaveData.Instance == null) return;
+    
     SaveData.Instance.info.currentWave = currentWave;
     SaveData.Instance.Save();
     Debug.Log($"게임 종료 - 현재 웨이브 {currentWave} 저장 완료");
