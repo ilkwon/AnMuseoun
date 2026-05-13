@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
-using UnityEngine.Animations;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
   private bool isSpawning = false;
   private bool doWaving;          // 웨이브 진행 여부 제어
   private int alivingEnemyCount;  // 현재 생존 중인 적 수
-
+  //----------------------------------------------------------------------------
   private void Start()
   {
     currentWave = SaveData.Instance.info.currentWave;
@@ -36,11 +35,10 @@ public class EnemySpawner : MonoBehaviour
   {
     if (!doWaving) return; ;
     if (isSpawning) return;
-//    Debug.Log($"웨이브 {currentWave} 진행 중... 남은 적 수: {alivingEnemyCount}");
+
     if (alivingEnemyCount > 0) return;
 
     StartCoroutine(StartNextWave());
-//    Debug.Log($"웨이브 {currentWave} 완료  남은 적 수: {alivingEnemyCount}");
     SaveCurrentProgress();
   }
 
@@ -63,7 +61,8 @@ public class EnemySpawner : MonoBehaviour
       }
     }
     currentWave++;
-    GetComponent<WaveUI>()?.UpdateUI(currentWave);
+    //GetComponent<WaveUI>()?.UpdateUI(currentWave);
+    EventBus.Emit(new OnWaveChanged { wave = currentWave });
     isSpawning = false;
   }
 

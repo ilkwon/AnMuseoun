@@ -15,7 +15,7 @@ public class PlayerHP : MonoBehaviour, ICombatable
   private float currentHP;
   public float MaxHp => maxHP;
   public float CurrentHp => currentHP;
-  public float CurrentHP => currentHP;
+  
   public bool IsDead => currentHP <= 0f;
 
   //---------------------------------------------------------------------------
@@ -28,11 +28,11 @@ public class PlayerHP : MonoBehaviour, ICombatable
     
     currentHP = maxHP;
 
-    var fill = GameObject.Find("PlayerHPCanvas/HPBarContainer/HP_Fill");
-    if (fill != null) hpFill = fill.GetComponent<UnityEngine.UI.Image>();
+    var fill = GameObject.Find("UIRoot/PanelPlayStatus/HpBar/HP_Fill");
+    hpFill = fill.GetComponent<UnityEngine.UI.Image>();
 
-    var text = GameObject.Find("PlayerHPCanvas/HPBarContainer/HP_Text");
-    if (text != null) hpText = text.GetComponent<TMP_Text>();
+    var text = GameObject.Find("UIRoot/PanelPlayStatus/HpBar/HP_Text");
+    hpText = text.GetComponent<TMP_Text>();
 
     UpdateHPUI();
   }
@@ -53,8 +53,9 @@ public class PlayerHP : MonoBehaviour, ICombatable
     if (IsDead) return;
 
     currentHP -= damage;
-//    Debug.Log($"플레이어 HP: {currentHP}/{maxHP}");
     UpdateHPUI();
+
+    EventBus.Emit(new OnHPChanged { currentHp = currentHP, maxHp = maxHP });
 
     if (currentHP <= 0f)
       Die();
@@ -64,10 +65,10 @@ public class PlayerHP : MonoBehaviour, ICombatable
   //---------------------------------------------------------------------------
   private void Die()
   {
-    //Debug.Log("Player Died!");
+
+    EventBus.Emit(new OnGameOver());
 
     HardcoreReset();
-
     GrayscaleScreen();
     ShowGameOverUI();
 
@@ -90,14 +91,13 @@ public class PlayerHP : MonoBehaviour, ICombatable
   //---------------------------------------------------------------------------
   private void ShowGameOverUI()
   {
-    var textObj = GameObject.Find("PlayerHPCanvas/HPBarContainer/HP_Text");
-    if (textObj != null)
-    {
+    var textObj = GameObject.Find("UIRoot/PanelPlayStatus/HpBar/HP_Text");
+ 
       var text = textObj.GetComponent<TMP_Text>();
       text.text = "GAME OVER";
       text.fontSize = 30;
       text.color = Color.red;
-    }
+ 
 
   }
   //---------------------------------------------------------------------------
@@ -119,7 +119,7 @@ public class PlayerHP : MonoBehaviour, ICombatable
       colorAdj.saturation.value = -100f;
     }
   }
-
+  //--------------------------------------------------------------------------- 
   public void SetMaxHP(float hp)
   {
     maxHP = hp;
@@ -128,10 +128,13 @@ public class PlayerHP : MonoBehaviour, ICombatable
   }
   //---------------------------------------------------------------------------
 #if UNITY_EDITOR
-  private void OnDisable()
-  {
+private void OnDisable()
+{
     if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
-      HardcoreReset();
-  }
+    {
+        if (SaveData.Instance != null)
+            HardcoreReset();
+    }
+}
 #endif
 }

@@ -43,6 +43,20 @@ public StatData Stats => _stats;
     currentLevel++;
     var stat = GameDataManager.Instance.GetPlayerStat(currentLevel);
     controller.MoveSpeed = stat.spd; // 레벨업 시 스피드 증가
+    _stats = new StatData
+    {
+      hp = stat.hp,
+      atk = stat.atk,
+      def = stat.def,
+      spd = stat.spd
+    };
+    
+    EventBus.Emit(new OnLevelUp 
+    {
+      level = currentLevel, 
+      currentExp = currentEXP, 
+      expToNextLevel = stat.exp_required 
+    });
     Debug.Log($"### 레벨업! 현재 레벨: {currentLevel}, 이동 속도: {controller.MoveSpeed}");    
   }
 
@@ -87,11 +101,5 @@ public StatData Stats => _stats;
     fsm.Update();
   }
 
-  //---------------------------------------------------------------------------
-  private void OnApplicationQuit()
-  {
-    SaveData.Instance.info.currentEXP = currentEXP;
-    SaveData.Instance.info.currentLevel = currentLevel;
-    SaveData.Instance.Save();
-  }
+
 }

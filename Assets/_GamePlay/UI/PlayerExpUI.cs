@@ -11,9 +11,9 @@ public class PlayerExpUI : MonoBehaviour
   //---------------------------------------------------------------------------
   void Start()
   {
-    expFill = GameObject.Find("PlayerHPCanvas/EXPBarContainer/EXP_Fill")
+    expFill = GameObject.Find("UIRoot/PanelPlayStatus/ExpBar/EXP_Fill")
                         .GetComponent<Image>();
-    expText = GameObject.Find("PlayerHPCanvas/EXPBarContainer/EXP_Text")
+    expText = GameObject.Find("UIRoot/PanelPlayStatus/ExpBar/EXP_Text")
                         .GetComponent<TextMeshProUGUI>();
     playerSM = GetComponent<PlayerStateMachine>();
 
