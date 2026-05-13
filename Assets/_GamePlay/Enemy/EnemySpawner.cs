@@ -10,15 +10,10 @@ public class EnemySpawner : MonoBehaviour
 
   // 밸런스 데이터 — 나중에 DataManager로 교체할 부분
   [Header("웨이브 데이터")]
-
   [SerializeField] private float spawnRadius = 25f;
   [SerializeField] private GameObject stageClearEffectPrefab;
 
-  // 프리팹 — 나중에 Addressable/AssetBundle로 교체 가능
-  [Header("프리팹")]
-  [SerializeField] private GameObject[] enemyPrefabs;
-  //private Queue<Enemy> _enemyPool = new();
-  private Dictionary<int, Queue<Enemy>> _enemyPool = new();
+
   private int currentWave = 0;
   private bool isSpawning = false;
   private bool doWaving;          // 웨이브 진행 여부 제어
@@ -69,33 +64,18 @@ public class EnemySpawner : MonoBehaviour
   //---------------------------------------------------------------------------
   private void SpawnEnemy(int enemyType)
   {
-    if (enemyType < 1 || enemyType - 1 >= enemyPrefabs.Length) return;
-
     int spawnIndex = Random.Range(0, spawnPoints.Length);
     Vector3 spawnPosition =
       spawnPoints[spawnIndex].position + Random.insideUnitSphere * spawnRadius;
     spawnPosition.y = 0; // 지면과 맞추기
 
-    Enemy enemy;
-    
-    // 풀링된 적이 있으면 재사용, 없으면 새로 생성
-    if (_enemyPool.ContainsKey(enemyType) && _enemyPool[enemyType].Count > 0)
-    {
-      enemy = _enemyPool[enemyType].Dequeue();
-      enemy.transform.position = spawnPosition;
-      enemy.gameObject.SetActive(true);
-      enemy.Initialize();
-      enemy.GetComponent<EnemyAI>().Initilize();          
-    }
-    else
-    {
-      var prefab = enemyPrefabs[enemyType - 1];
-      var spawnObj = Instantiate(prefab, spawnPosition, Quaternion.identity);
-      enemy = spawnObj.GetComponent<Enemy>();
-    }
-
+    var go = EnemyPool.Instance.GetEnemy(enemyType, spawnPosition);
+    Enemy enemy = go.GetComponent<Enemy>();
+    enemy.Initialize();                          // ← 추가
+    enemy.GetComponent<EnemyAI>().Initilize();
     if (enemy != null)
     {
+      
       // StatData 생성 + buff 적용 push
       var baseStat = GameDataManager.Instance.GetEnemyStat(enemy.Type);
       var statData = new StatData
@@ -126,12 +106,8 @@ public class EnemySpawner : MonoBehaviour
     //Debug.Log($"적 사망! 현재 생존 적 수: {alivingEnemyCount}");    
     
     enemy.OnDeath -= HandleEnemyDeath;
-
-    enemy.gameObject.SetActive(false);
-    var key = ((int)enemy.Type);
-    if (!_enemyPool.ContainsKey(key))
-      _enemyPool[key] = new Queue<Enemy>();
-    _enemyPool[key].Enqueue(enemy);
+    
+    EnemyPool.Instance.ReturnEnemy(enemy.gameObject);
   }
 
   //---------------------------------------------------------------------------
