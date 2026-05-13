@@ -3,7 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerHP : MonoBehaviour
+public class PlayerHP : MonoBehaviour, ICombatable
 {
   [Header("HP")]
   [SerializeField] private float maxHP = 100f;
@@ -13,6 +13,8 @@ public class PlayerHP : MonoBehaviour
   private TMP_Text hpText;
 
   private float currentHP;
+  public float MaxHp => maxHP;
+  public float CurrentHp => currentHP;
   public float CurrentHP => currentHP;
   public bool IsDead => currentHP <= 0f;
 
@@ -23,8 +25,7 @@ public class PlayerHP : MonoBehaviour
     var volume = FindAnyObjectByType<UnityEngine.Rendering.Volume>();
     if (volume != null && volume.profile.TryGet<UnityEngine.Rendering.Universal.ColorAdjustments>(out var ca))
       ca.saturation.Override(0f);
-
-    maxHP = GameDataManager.Instance.GetPlayerStat(1).hp; // 레벨 1 HP로 초기화
+    
     currentHP = maxHP;
 
     var fill = GameObject.Find("PlayerHPCanvas/HPBarContainer/HP_Fill");

@@ -78,7 +78,7 @@ public class PlayerAttackState : IState
       var enemy = hit.GetComponent<Enemy>();
       if (enemy != null)
       {
-        var result = DamageCalculator.Calculate(owner.CurrentLevel, WeaponType.Axe, enemy.Def);
+        var result = DamageCalculator.Calculate(owner.Stats, WeaponType.Axe, enemy.Def);
         if (result.isCritical)
           anyCritical = true;
 
