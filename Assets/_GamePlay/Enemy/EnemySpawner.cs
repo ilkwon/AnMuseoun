@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
   //----------------------------------------------------------------------------
   private void Start()
   {
-    currentWave = SaveData.Instance.info.currentWave;
+    //currentWave = SaveData.Instance.info.currentWave;
     StartCoroutine(StartNextWave());
     doWaving = true;
   }
