@@ -68,9 +68,8 @@ public class EnemySpawner : MonoBehaviour
     Vector3 spawnPosition =
       spawnPoints[spawnIndex].position + Random.insideUnitSphere * spawnRadius;
     spawnPosition.y = 0; // 지면과 맞추기
-
-    var go = EnemyPool.Instance.GetEnemy(enemyType, spawnPosition);
-    Enemy enemy = go.GetComponent<Enemy>();
+  
+    Enemy enemy = EnemyPool.Instance.GetEnemy(enemyType, spawnPosition);
     enemy.Initialize();                          // ← 추가
     enemy.GetComponent<EnemyAI>().Initilize();
     if (enemy != null)
@@ -103,11 +102,9 @@ public class EnemySpawner : MonoBehaviour
   {
     alivingEnemyCount--;
 
-    //Debug.Log($"적 사망! 현재 생존 적 수: {alivingEnemyCount}");    
-    
     enemy.OnDeath -= HandleEnemyDeath;
     
-    EnemyPool.Instance.ReturnEnemy(enemy.gameObject);
+    EnemyPool.Instance.ReturnEnemy(enemy);
   }
 
   //---------------------------------------------------------------------------
@@ -125,4 +122,5 @@ public class EnemySpawner : MonoBehaviour
     SaveData.Instance.Save();
     Debug.Log($"게임 종료 - 현재 웨이브 {currentWave} 저장 완료");
   }
+  //---------------------------------------------------------------------------
 }
